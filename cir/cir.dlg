@@ -20,6 +20,7 @@ DEFINE _x _lft
 DEFINE _y 165
 DEFINE _cx 100
 
+**# DIALOG main
 DIALOG main, label("cir - Confidence Interval for corrrelations") tabtitle("Main")
 BEGIN
 	TEXT  		tx_y _lft _top  _var_w	., label("Y variable:") left
@@ -41,6 +42,7 @@ END
 
 INCLUDE byifin
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	INCLUDE _by_pr

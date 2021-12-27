@@ -30,6 +30,7 @@ DEFINE _x _lft
 DEFINE _y _top
 DEFINE _cx 100
 
+**# DIALOG main
 DIALOG main, label("dti - Diagnostic Tests") tabtitle("Main")
 BEGIN
 	GROUPBOX	gb_st	_lft   _top		340    50, label("Study type")
@@ -68,6 +69,7 @@ BEGIN
 	EDIT		ed_nst	_ilft   _ms	 	320		., option(nst)
 END
 
+**# DIALOG opt
 DIALOG opt, tabtitle("Options")
 BEGIN
 	INCLUDE _sp_level
@@ -90,6 +92,7 @@ LIST ci_values
 	END
 
 
+**# PROGRAM change_st
 PROGRAM change_st
 BEGIN
 	//Void m1,n,se,sp controls
@@ -141,6 +144,7 @@ BEGIN
 END
 
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	put "dti "

@@ -410,6 +410,7 @@ end
 
 version 12
 mata:
+//# getpbcoef
 void getpbcoef(string scalar varx, string scalar vary, real scalar level, string scalar res, string scalar touse)
 {
 	real matrix	X, Y, S, R

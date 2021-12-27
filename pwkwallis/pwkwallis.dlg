@@ -12,6 +12,7 @@ INCLUDE header
 HELP hlp1, view("help pwkwallis")
 RESET res1
 
+**# DIALOG main
 DIALOG main, tabtitle("Main") label("pwkwallis")
 BEGIN
   TEXT	   tx_var	_lft	_top	_iwd	., label("Outcome variable:")
@@ -23,6 +24,7 @@ END
 
 INCLUDE ifin
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	put "pwkwallis "

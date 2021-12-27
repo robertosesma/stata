@@ -13,6 +13,7 @@ INCLUDE header
 HELP hlp1, view("help chisqi")
 RESET res1
 
+**# DIALOG main
 DIALOG main, label("chisqi - Goodness of fit Chi-squared test") tabtitle("Main")
 BEGIN
 	TEXT  		tx_cat 	_lft  	_top 300	., label("Theoretical distribution of the categories:") left
@@ -34,6 +35,7 @@ BEGIN
 END
 
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	put "chisqi "

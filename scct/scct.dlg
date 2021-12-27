@@ -12,6 +12,7 @@ INCLUDE header
 HELP hlp1, view("help sccti")
 RESET res1
 
+**# DIALOG main
 DIALOG main, label("sccti - Stochastic Curtailment: Clinical trials") tabtitle("Main")
 BEGIN
 	TEXT  	tx_t	_lft  _top 	 265 	., label("Percentage of information accrued:") right
@@ -30,6 +31,7 @@ BEGIN
 END
 
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	put "scct "

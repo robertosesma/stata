@@ -12,6 +12,7 @@ INCLUDE header
 HELP hlp1, view("help intcon")
 RESET res1
 
+**# DIALOG main
 DIALOG main, label("intcon - Internal Consistency") tabtitle("Main")
 BEGIN
 	TEXT  		tx_vars   _lft   _top 	_iwd  	., label("Variables:")
@@ -27,6 +28,7 @@ END
 INCLUDE ifin
 INCLUDE weights_fpa
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
     require main.vl_vars

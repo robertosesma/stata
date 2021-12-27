@@ -365,6 +365,7 @@ end
 
 version 12
 mata:
+//# get_results
 void get_results(string scalar data, string scalar result, real scalar ordered, real scalar level)
 {
 	real matrix d, r
@@ -393,6 +394,7 @@ end
 
 version 12
 mata:
+//# get_kappa
 real matrix get_kappa(string scalar type, real matrix d, real matrix k, real scalar level)
 {
 	real matrix	p, w, wi, wj

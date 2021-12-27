@@ -13,6 +13,7 @@ INCLUDE header
 HELP hlp1, view("help rndseq")
 RESET res1
 
+**# DIALOG main
 DIALOG main, label("rndseq - Generation of Random Sequences") tabtitle("Main")
 BEGIN
 	TEXT  		tx_type	_lft  	_top 	120 	., label("Randomization type:")
@@ -53,6 +54,7 @@ BEGIN
 	EDIT		ed_nst	_ilft   _ss	 380	., option(nst)
 END
 
+**# DIALOG opt
 DIALOG opt, tabtitle("Options")
 BEGIN
 	GROUPBOX	gb_cent	_lft	_top 400	100, label("Labels of Centers")
@@ -73,6 +75,7 @@ BEGIN
 END
 
 
+**# PROGRAM type_simple
 PROGRAM type_simple
 BEGIN
 	call main.ed_rat1.show
@@ -87,6 +90,7 @@ BEGIN
 	call main.tx_hp.hide
 END
 
+**# PROGRAM type_block
 PROGRAM type_block
 BEGIN
 	call main.ed_bs.show
@@ -103,6 +107,7 @@ BEGIN
 	call main.tx_hp.hide
 END
 
+**# PROGRAM type_efron
 PROGRAM type_efron
 BEGIN
 	call main.ed_lp.show
@@ -118,6 +123,7 @@ BEGIN
 END
 
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	put "rndseq " 

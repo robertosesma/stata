@@ -26,6 +26,7 @@ DEFINE _iwd 310
 DEFINE _gb 410
 
 
+**# SCRIPT PREINIT
 SCRIPT PREINIT
 BEGIN
 	create BOOLEAN isLoading
@@ -43,6 +44,7 @@ BEGIN
 	dlgName.setvalue class _dlg_rsrcname
 END
 
+**# SCRIPT POSTINIT
 SCRIPT POSTINIT
 BEGIN
 	.isLoading.setfalse
@@ -50,13 +52,14 @@ BEGIN
 END
 
 
+**# DIALOG main
 DIALOG main, label("nsize - Sample Size & Power") tabtitle("Main")
 BEGIN
 	TEXT  		tx_capt		_lft	_top	100 	., label("Type:")
 	COMBOBOX	co_type		_lft	_ss		370		., dropdownlist contents(descrip) values(values) default("co1p") onselchange(program showHide)
 	TEXT 		tx_type 	+380	@ 		40 		., label("")
 
-	// co1p controls
+	**# co1p controls
 	GROUPBOX	co1p_gb1	_lft  	_ini	_gb    	140
 	TEXT  		co1p_p_de 	_ilft	_ss 	_de		., label("p ") right
     EDIT  		co1p_p_ed  	_ide	@ 		_edw   	., numonly label("p") option(p)
@@ -79,7 +82,7 @@ BEGIN
     EDIT  		co1p_n_ed 	_ide	@ 		_edw   	., numonly label("n") option(n)
     TEXT  		co1p_n_tx 	_iedw	@ 		_tx	   	., label("Sample Size")
 
-	// co2p controls
+	**# co2p controls
 	GROUPBOX	co2p_gb1	_lft  	_ini	_gb    	140
 	TEXT  		co2p_p0_de 	_ilft	_ss 	_de		., label("p0 ") right
     EDIT  		co2p_p0_ed  _ide	@ 		_edw   	., numonly label("p0") option(p0)
@@ -102,7 +105,7 @@ BEGIN
     EDIT  		co2p_n_ed 	_ide	@ 		_edw	., numonly label("n") option(n)
     TEXT  		co2p_n_tx 	_iedw	@ 		_tx	   	., label("Sample Size")
 
-	// c1pe controls
+	**# c1pe controls
 	GROUPBOX	c1pe_gb1	_lft  	_ini	_gb    	140
 	TEXT  		c1pe_p0_de 	_ilft	_ss 	_de		., label("p0 ") right
     EDIT  		c1pe_p0_ed  _ide	@ 		_edw   	., numonly label("p0") option(p0)
@@ -129,7 +132,7 @@ BEGIN
     EDIT  		c1pe_n_ed 	_ide	@ 		_edw	., numonly label("n") option(n)
     TEXT  		c1pe_n_tx 	_iedw	@ 		_tx	   	., label("Sample Size")
 
-	// c2pe controls
+	**# c2pe controls
 	GROUPBOX	c2pe_gb1	_lft  	_ini	_gb    	170
 	TEXT  		c2pe_p0_de 	_ilft	_ss 	_de		., label("p0 ") right
     EDIT  		c2pe_p0_ed  _ide	@ 		_edw   	., numonly label("p0") option(p0)
@@ -162,7 +165,7 @@ BEGIN
     EDIT  		c2pe_n1_ed 	_ide	@ 		_edw	., numonly label("n1") option(n1)
     TEXT  		c2pe_n1_tx 	_iedw	@ 		_tx	   	., label("Sample Size (Experimental treatment)")
 
-	// copp controls
+	**# copp controls
 	GROUPBOX	copp_gb1	_lft  	_ini	_gb    	195
 	TEXT  		copp_or_de 	_ilft	_ss 	_de		., label("or ") right
     EDIT  		copp_or_ed  _ide	@ 		_edw   	., numonly label("or") option(or)
@@ -191,7 +194,7 @@ BEGIN
     EDIT  		copp_n_ed 	_ide	@ 		_edw	., numonly label("n") option(n)
     TEXT  		copp_n_tx 	_iedw	@ 		_tx	   	., label("Sample Size (Total number of cases)")
 
-	// co1m controls
+	**# co1m controls
 	GROUPBOX	co1m_gb1	_lft  	_ini	_gb    	90
 	TEXT  		co1m_sd_de 	_ilft	_ss 	_de		., label("sd ") right
     EDIT  		co1m_sd_ed  _ide	@ 		_edw   	., numonly label("sd") option(sd)
@@ -221,7 +224,7 @@ BEGIN
     EDIT  		co1m_n2_ed 	_ide	@ 		_edw   	., numonly label("n") option(n)
     TEXT  		co1m_n2_tx 	_iedw	@ 		_tx	   	., label("Sample Size (by group)")
 
-	// co2m controls
+	**# co2m controls
 	GROUPBOX	co2m_gb1	_lft  	_ini	_gb    	115
 	TEXT  		co2m_sd_de 	_ilft	_ss 	_de		., label("sd ") right
     EDIT  		co2m_sd_ed  _ide	@ 		_edw   	., numonly label("sd") option(sd)
@@ -260,7 +263,7 @@ BEGIN
     EDIT  		co2m_n02_ed _ide	@ 		_edw   	., numonly label("n0") option(n0)
     TEXT  		co2m_n02_tx _iedw	@ 		_tx	   	., label("Sample Size (Group 0)")
 
-	// c2me controls
+	**# c2me controls
 	GROUPBOX	c2me_gb1	_lft  	_ini	_gb    	90
 	TEXT  		c2me_sd_de 	_ilft	_ss 	_de		., label("sd ") right
     EDIT  		c2me_sd_ed  _ide	@ 		_edw   	., numonly label("sd") option(sd)
@@ -290,7 +293,7 @@ BEGIN
     EDIT  		c2me_n2_ed 	_ide	@ 		_edw   	., numonly label("n") option(n)
     TEXT  		c2me_n2_tx 	_iedw	@ 		_tx	   	., label("Sample Size (by group)")
 
-	// cokm controls
+	**# cokm controls
 	GROUPBOX	cokm_gb1	_lft  	_ini	_gb    	55
 	TEXT  		cokm_sd_de 	_ilft	_ss 	_de		., label("sd ") right
     EDIT  		cokm_sd_ed  _ide	@ 		_edw   	., numonly label("sd") option(sd)
@@ -316,7 +319,7 @@ BEGIN
     EDIT  		cokm_nk2_ed _ide	@ 		_iwd   	., label("nk") option(nk)
 
 	
-	// ci1p controls
+	**# ci1p controls
 	GROUPBOX	ci1p_gb1	_lft  	_ini	_gb    	130
     TEXT  		ci1p_p0_tx  _ilft	_ss 	_tx	   	., label("Supposed Population Proportion(%):")
 	TEXT  		ci1p_p0_de 	_ilft	_ms 	_de		., label("p0 ") right
@@ -336,7 +339,7 @@ BEGIN
 	TEXT  		ci1p_ns_de 	_ilft	_ms 	_de		., label("ns ") right
     EDIT  		ci1p_ns_ed 	_ide	@ 		_iwd   	., label("ns") option(ns)
 	
-	// ci2p controls
+	**# ci2p controls
 	GROUPBOX	ci2p_gb1	_lft  	_ini	_gb    	130
 	TEXT  		ci2p_p0_de 	_ilft	_ss 	_de		., label("p0 ") right
     EDIT  		ci2p_p0_ed  _ide	@ 		_edw   	., numonly label("p0") option(p0)
@@ -362,7 +365,7 @@ BEGIN
     EDIT  		ci2p_n0_ed 	_ide	@ 		_edw   	., numonly label("n0") option(n0)
     TEXT  		ci2p_n0_tx 	_iedw	@ 		_tx	   	., label("Sample Size (Group 0)")
 
-	// ci1m controls
+	**# ci1m controls
 	GROUPBOX	ci1m_gb1	_lft  	_ini	_gb    	100
 	TEXT  		ci1m_sd_de 	_ilft	_ss 	_de		., label("sd ") right
     EDIT  		ci1m_sd_ed  _ide	@ 		_edw   	., numonly label("sd") option(sd)
@@ -382,7 +385,7 @@ BEGIN
     EDIT  		ci1m_ns_ed 	_ide	@ 		_edw   	., numonly label("ns") option(ns)
     TEXT  		ci1m_ns_tx 	_iedw	@ 		_tx	   	., label("Sample Size")
 	
-	// ci2m controls
+	**# ci2m controls
 	GROUPBOX	ci2m_gb1	_lft  	_ini	_gb    	100
 	TEXT  		ci2m_sd_de 	_ilft	_ss 	_de		., label("sd ") right
     EDIT  		ci2m_sd_ed  _ide	@ 		_edw   	., numonly label("sd") option(sd)
@@ -405,7 +408,7 @@ BEGIN
     EDIT  		ci2m_n0_ed 	_ide	@ 		_edw   	., numonly label("n0") option(n0)
     TEXT  		ci2m_n0_tx 	_iedw	@ 		_tx	   	., label("Sample Size (Group 0)")
 
-	// co1c controls
+	**# co1c controls
 	GROUPBOX	co1c_gb1	_lft  	_ini	_gb    	140
 	TEXT  		co1c_cr_de 	_ilft	_ss 	_de		., label("cr ") right
     EDIT  		co1c_cr_ed  _ide	@ 		_edw   	., numonly label("cr") option(cr)
@@ -428,7 +431,7 @@ BEGIN
     EDIT  		co1c_n1_ed 	_ide	@ 		_edw	., numonly label("n1") option(n1)
     TEXT  		co1c_n1_tx 	_iedw	@ 		_tx	   	., label("Size of sample 1")
 
-	// co2c controls
+	**# co2c controls
 	GROUPBOX	co2c_gb1	_lft  	_ini	_gb    	140
 	TEXT  		co2c_cr0_de	_ilft	_ss 	_de		., label("cr0 ") right
     EDIT  		co2c_cr0_ed _ide	@ 		_edw   	., numonly label("cr0") option(cr0)
@@ -454,7 +457,7 @@ BEGIN
     EDIT  		co2c_n0_ed 	_ide	@ 		_edw	., numonly label("n0") option(n0)
     TEXT  		co2c_n0_tx 	_iedw	@ 		_tx	   	., label("Size of sample 0")
 
-	// co2r controls
+	**# co2r controls
 	GROUPBOX 	co2r_gb1  	_lft 	_ini 	_gb 	50, label("")
 	RADIO 		co2r_co		_ilft   _ss  	200   	., first label("Cohort Risk studies") onclickon(program co2r_co)
 	RADIO 		co2r_cc		+210   	@   	175   	., last label("Case-Control studies") onclickon(program co2r_cc)
@@ -524,7 +527,7 @@ BEGIN
     EDIT  		co2r_m0_ed 	_ide	@ 		_edw	., numonly label("m0") option(m0)
     TEXT  		co2r_m0_tx 	_iedw	@ 		_tx	   	., label("Size of sample 0")
 	
-	// co2i controls
+	**# co2i controls
 	GROUPBOX	co2i_gb1	_lft  	_ini	_gb    	220
 	TEXT  		co2i_i0_de	_ilft	_ss 	_de		., label("i0 ") right
     EDIT  		co2i_i0_ed 	_ide	@ 		_edw   	., numonly label("i0") option(i0)
@@ -559,7 +562,7 @@ BEGIN
     EDIT  		co2i_n0_ed 	_ide	@ 		_edw	., numonly label("n0") option(n0)
     TEXT  		co2i_n0_tx 	_iedw	@ 		_tx	   	., label("Size of sample 0")
 
-	// ncr controls
+	**# ncr controls
 	GROUPBOX	ncr_gb1		_lft  	_ini	_gb    	145
 	TEXT  		ncr_vb_de	_ilft	_ss 	_de		., label("vb ") right
     EDIT  		ncr_vb_ed 	_ide	@ 		_edw   	., numonly label("vb") option(vb)
@@ -578,7 +581,7 @@ BEGIN
     EDIT  		ncr_b_ed 	_ide	@ 		_edw   	., numonly label("beta") option(beta) default("20 15 10")
     TEXT  		ncr_b_tx 	_iedw	@ 		_tx	   	., label("Beta risk(%)")
 	
-	// nst
+	**# nst
 	GROUPBOX	gb_nst	 	_lft    _nst   	_gb   	60, label("Name of the study")
 	EDIT		ed_nst	 	_ilft   _ms	 	380   	., option(nst)
 END
@@ -627,6 +630,7 @@ LIST values
 		ncr
 	END
 	
+**# PROGRAM showHide
 PROGRAM showHide
 BEGIN
 	if ! isLoading {
@@ -636,6 +640,7 @@ BEGIN
 	}
 END
 	
+**# PROGRAM onOff_size
 PROGRAM onOff_size
 BEGIN
 	if ! isLoading & onOff & co2rOnOff {
@@ -645,6 +650,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM onOff_power
 PROGRAM onOff_power
 BEGIN
 	if ! isLoading & onOff & co2rOnOff {
@@ -654,6 +660,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM onOff_effect
 PROGRAM onOff_effect
 BEGIN
 	if ! isLoading & onOff {
@@ -663,6 +670,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM onOff_mean
 PROGRAM onOff_mean
 BEGIN
 	if ! isLoading & onOff {
@@ -672,6 +680,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM onOff_pair
 PROGRAM onOff_pair
 BEGIN
 	if ! isLoading & onOff {
@@ -681,6 +690,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM onOff_preci
 PROGRAM onOff_preci
 BEGIN
 	if ! isLoading & onOff {
@@ -690,6 +700,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM co2r_co
 PROGRAM co2r_co
 BEGIN
 	if ! isLoading & onOff & co2rOnOff {
@@ -699,6 +710,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM co2r_cc
 PROGRAM co2r_cc
 BEGIN
 	if ! isLoading & onOff & co2rOnOff {
@@ -708,6 +720,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM test
 PROGRAM test
 BEGIN
 	if ! isLoading {
@@ -718,6 +731,7 @@ BEGIN
 END
 
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	put "nsize " main.co_type

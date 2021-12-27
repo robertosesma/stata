@@ -20,6 +20,7 @@ DEFINE _x _lft
 DEFINE _y 180
 DEFINE _cx 100
 
+**# DIALOG main
 DIALOG main, label("ciri - Confidence Interval for corrrelations") tabtitle("Main")
 BEGIN
 	GROUPBOX	gb_1  _lft   _top	370    55, label("Group 1")
@@ -43,7 +44,7 @@ BEGIN
 	EDIT		ed_nst	_ilft   _ms	 	350		., option(nst)
 END
 
-	
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	put "ciri "

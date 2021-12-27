@@ -20,6 +20,7 @@ DEFINE _vinc	+220
 DEFINE _y_nst 	150
 DEFINE _gb_wd	370
 
+**# DIALOG main
 DIALOG main, label("agree - Passing-Bablok & Bland-Altman methods") tabtitle("Main")
 BEGIN
     RADIO		rb_ba	_lft	_top    _rb_wd	., label("Bland-Altman comparison of two measurements methods") /*
@@ -41,6 +42,7 @@ END
 
 INCLUDE byifin
 
+**# DIALOG opt
 DIALOG opt, tabtitle("Options")
 BEGIN
 	INCLUDE _sp_level
@@ -55,7 +57,7 @@ BEGIN
     */                                              onclickoff(program disableid) option(list)
 	VARNAME 	vid		_iilft	_ss		_vlx	., label("Identifier") option(id)
 END
-
+**# PROGRAM sel_ba
 PROGRAM sel_ba
 BEGIN
 	call opt.cb_pct.enable
@@ -65,7 +67,7 @@ BEGIN
     call opt.cb_list.disable
     call opt.vid.disable
 END
-
+**# PROGRAM sel_pb
 PROGRAM sel_pb
 BEGIN
     call opt.cb_pct.disable
@@ -75,18 +77,19 @@ BEGIN
     call opt.cb_list.enable
     call opt.vid.enable
 END
-
+**# PROGRAM disableid
 PROGRAM disableid
 BEGIN
 	call opt.vid.disable
 END
-
+**# PROGRAM enableid
 PROGRAM enableid
 BEGIN
 	call opt.vid.enable
 END
 
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	INCLUDE _by_pr

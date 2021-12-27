@@ -12,6 +12,7 @@ INCLUDE header
 HELP hlp1, view("help inciden")
 RESET res1
 
+**# DIALOG main
 DIALOG main, label("dcreport - Data Check: Incidence Report") tabtitle("Main")
 BEGIN
 	TEXT  		tx_vars 	_lft   _top 	300  	., label("Variables (leave emtpy to use all error variables):")
@@ -22,6 +23,7 @@ BEGIN
 	CHECKBOX	cb_idnum	_ilft  _ms		300     ., label("Use _ObsNum variable to identify cases")
 END
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	put "dcreport "

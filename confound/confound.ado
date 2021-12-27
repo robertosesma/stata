@@ -425,6 +425,7 @@ end
 
 version 12
 mata:
+//# struct confound_res
 struct confound_res
 {
 	string scalar		dep
@@ -437,9 +438,11 @@ struct confound_res
 	string scalar		type
 	string scalar		weight
 }
+end
 
 version 12
 mata:
+//# getresults
 void getresults(string scalar dep, string scalar exp, string scalar exp_vars, string scalar indep, 	/*
 */				string scalar type, string scalar int_terms, string scalar fixed, string scalar weight)
 {
@@ -591,6 +594,7 @@ end
 
 version 12
 mata:
+//# addterm
 string colvector addterm(string colvector fixed, string colvector terms, string scalar sep)
 {
 	real scalar i, j, lenf, lent
@@ -617,6 +621,7 @@ end
 
 version 12
 mata:
+//# combinations
 void combinations(real scalar elements, real scalar first, real scalar last, string colvector combs, string rowvector names)
 {
 	real scalar			i
@@ -672,6 +677,7 @@ end
 
 version 12
 mata:
+//# addcomb
 void addcomb(string scalar comb, string colvector combs) {
 	if (rows(combs) == 0) {
 		combs = J(1,1,comb)
@@ -684,6 +690,7 @@ end
 
 version 12
 mata:
+//# executereg
 void executereg(real colvector results, string colvector vnames, string colvector labels, string colvector combs, struct confound_res scalar r, string rowvector fixed_vars) {
 	real matrix eb, eV, F
 	real scalar i, nvar, nfixed, j, index, m, ok

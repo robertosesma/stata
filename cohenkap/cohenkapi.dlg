@@ -26,6 +26,7 @@ DEFINE _x _lft
 DEFINE _y 330
 DEFINE _cx 100
 
+**# SCRIPT PREINIT
 SCRIPT PREINIT
 BEGIN
 	create STRING cmd
@@ -33,6 +34,7 @@ BEGIN
 	dlgName.setvalue class _dlg_rsrcname
 END
 
+**# PROGRAM POSTINIT_PROGRAM
 PROGRAM POSTINIT_PROGRAM
 BEGIN
 	put "cohenkapi__dlg enableDisable , "
@@ -41,6 +43,7 @@ BEGIN
 END
 
 
+**# DIALOG main
 DIALOG main, label("cohenkapi - Weighted kappa") tabtitle("Main")
 BEGIN
   SPINNER  sp_cat    20    10    60    ., min(2) default(2) max(9) onchange(program cat_changed)
@@ -184,6 +187,7 @@ LIST ci_values
 	END
 
 
+**# PROGRAM cat_changed
 PROGRAM cat_changed
 BEGIN
 	put "cohenkapi__dlg enableDisable , "
@@ -192,6 +196,7 @@ BEGIN
 END
 
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	put "cohenkapi__dlg genCommand, "

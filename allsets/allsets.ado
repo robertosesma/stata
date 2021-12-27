@@ -402,6 +402,7 @@ end
 
 version 12
 mata:
+//# struct allsets_res
 struct allsets_res
 {
 	string scalar		dep
@@ -415,9 +416,11 @@ struct allsets_res
 	string scalar		weight
 	string scalar		exp
 }
+end
 
 version 12
 mata:
+//# getresults
 void getresults(string scalar dep, string scalar indep, string scalar inter, string scalar type, /*
 */				real scalar hierarchical, string scalar fixed, real scalar minvar, real scalar maxvar, /*
 */				string scalar weight, string scalar exp)
@@ -526,6 +529,7 @@ end
 
 version 12
 mata:
+//# combinations
 void combinations(real scalar elements, real scalar first, real scalar last, string colvector combs, struct allsets_res scalar r)
 {
 	real scalar			i
@@ -581,6 +585,7 @@ end
 
 version 12
 mata:
+//# addcomb
 void addcomb(string scalar comb, string colvector combs) {
 	if (rows(combs) == 0) {
 		combs = J(1,1,comb)
@@ -593,6 +598,7 @@ end
 
 version 12
 mata:
+//# executereg
 void executereg(real colvector results, string colvector vnames, string colvector combs, struct allsets_res scalar r, real scalar maxvar) {
 	real scalar 	r2
 	real scalar 	r2a

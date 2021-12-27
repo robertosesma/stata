@@ -1921,6 +1921,7 @@ end
 
 version 12
 mata:
+//# struct mar_results
 struct mar_results
 {
 	real   matrix   data		//2x2 data: 1 a1; 2 a0; 3 b1; 4 b0; 5 n1; 6 n0; 7 m1; 8 m0; 9 n
@@ -1962,9 +1963,11 @@ struct mar_results
 	real   scalar   get_cum
 	real   scalar	cum_descent
 }
+end
 
 version 12
 mata:
+//# init
 void init(string scalar type, string scalar stat, real scalar nstudy, real scalar level,real scalar influ,string scalar method,real scalar cum,real scalar cumdescent)
 {
 	struct mar_results scalar	r
@@ -2059,6 +2062,7 @@ end
 
 version 12
 mata:
+//# ZtoRho
 real scalar ZtoRho(real scalar z)
 {
 	//Fisher's Z to rho correlation coefficient
@@ -2068,6 +2072,7 @@ end
 
 version 12
 mata:
+//# ZtoRhoM
 real matrix ZtoRhoM(real matrix Z)
 {
 	//Fisher's Z to rho correlation coefficient
@@ -2077,6 +2082,7 @@ end
 
 version 12
 mata:
+//# cum
 void cum(struct mar_results scalar r)
 {
 	real matrix D, T, R, temp, S
@@ -2138,6 +2144,7 @@ end
 
 version 12
 mata:
+//# delrow
 real matrix delrow(real matrix M, real scalar i, real scalar n)
 {
 	//Return matrix M without the i row. The matrix is nxn
@@ -2157,6 +2164,7 @@ end
 
 version 12
 mata:
+//# influ
 void influ(struct mar_results scalar r)
 {
 	real rowvector R
@@ -2243,6 +2251,7 @@ end
 
 version 12
 mata:
+//# getterms
 void getterms(struct mar_results scalar r)
 {
 	if (r.stat=="or" | r.stat=="rr" | r.stat=="rd") {
@@ -2272,6 +2281,7 @@ end
 
 version 12
 mata:
+//# mh
 real rowvector mh(struct mar_results scalar r, real matrix st, real matrix s_e, real matrix a1, /*
 */	real matrix a0, real matrix b1, real matrix b0, real matrix t1, real matrix t0, real matrix n, real matrix t, real scalar zerocor)
 {
@@ -2324,6 +2334,7 @@ end
 
 version 12
 mata:
+//# peto
 real rowvector peto(struct mar_results scalar r, real matrix w, real matrix st, real matrix a1, real matrix m1, real matrix n1, real matrix n)
 {
 	real rowvector R, ae, Q
@@ -2347,6 +2358,7 @@ end
 
 version 12
 mata:
+//# iov
 real rowvector iov(struct mar_results scalar r, real matrix w, real matrix st)
 {
 	real rowvector R, num, Q
@@ -2408,6 +2420,7 @@ end
 
 version 12
 mata:
+//# getstdata
 void getstdata(struct mar_results scalar r)
 {
 	real   rowvector   t
@@ -2473,6 +2486,7 @@ end
 
 version 12
 mata:
+//# getweights
 void getweights(struct mar_results scalar r)
 {
 	real  rowvector  sw
@@ -2498,6 +2512,7 @@ end
 
 version 12
 mata:
+//# getwivr
 void getwivr(struct mar_results scalar r)
 {
 	real  scalar     Tau2

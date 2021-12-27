@@ -29,6 +29,7 @@ DEFINE _x _ilft
 DEFINE _y 195
 DEFINE _cx 100
 
+**# DIALOG main
 DIALOG main, label("mar - Meta-Analysis") tabtitle("Main")
 BEGIN
 	TEXT  		tx_type 	_lft   _top 	70  	., label("Data type:")
@@ -59,6 +60,7 @@ END
 
 INCLUDE ifin
 
+**# DIALOG opt1
 DIALOG opt1, tabtitle("Additional analyses and Graphics")
 BEGIN
 	GROUPBOX	gb_print 	_lft  _top		390    90, label("Print")
@@ -86,6 +88,7 @@ BEGIN
 	CHECKBOX	cb_hist   _ilft  _ss	300     ., label("Histogram") onclickon(program enablemethod) onclickoff(program disablemethod)
 END
 
+**# DIALOG opt2
 DIALOG opt2, tabtitle("Publication Bias")
 BEGIN
 	GROUPBOX	gb_bias	_lft   _top	390    180, label("Publication Bias")
@@ -203,6 +206,7 @@ LIST md_std_values
 		glass
 	END
 	
+**# PROGRAM typechange
 PROGRAM typechange
 BEGIN
 	if (main.co_type.iseq("raw")) {
@@ -222,6 +226,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM statchange
 PROGRAM statchange
 BEGIN
 	if (main.co_stat.iseq("b")) {
@@ -267,6 +272,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM methodchange
 PROGRAM methodchange
 BEGIN
 	if (opt1.co_method.iseq("fem")) {
@@ -283,6 +289,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM enablemethod
 PROGRAM enablemethod
 BEGIN
 	if (!main.cb_peto) {
@@ -293,6 +300,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM disablemethod
 PROGRAM disablemethod
 BEGIN
 	if (!opt1.cb_influ & !opt1.cb_cumul & !opt1.cb_forest & !opt1.cb_inter & !opt1.cb_fun & /*
@@ -305,6 +313,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM enablemethod2
 PROGRAM enablemethod2
 BEGIN
 	if (!main.cb_peto) {
@@ -312,17 +321,20 @@ BEGIN
 	}
 END
 
+**# PROGRAM disablemethod2
 PROGRAM disablemethod2
 BEGIN
 	call opt2.co_method2.disable
 END
 
+**# PROGRAM peto_on
 PROGRAM peto_on
 BEGIN
 	call opt1.co_method.setvalue "peto"
 	call opt1.co_method.disable
 END
 
+**# PROGRAM peto_off
 PROGRAM peto_off
 BEGIN
 	call opt1.co_method.setvalue "fem"
@@ -336,6 +348,7 @@ BEGIN
 
 END
 
+**# PROGRAM clickco
 PROGRAM clickco
 BEGIN
 	if (opt2.ed_maco.iseq("")) {
@@ -345,6 +358,7 @@ BEGIN
 	call opt2.ed_macc.setvalue ""
 END
 
+**# PROGRAM clickcc
 PROGRAM clickcc
 BEGIN
 	if (opt2.ed_macc.iseq("")) {
@@ -354,17 +368,20 @@ BEGIN
 	call opt2.ed_maco.setvalue ""
 END
 
+**# PROGRAM clickoffco
 PROGRAM clickoffco
 BEGIN
 	call opt2.ed_maco.setvalue ""
 END
 
+**# PROGRAM clickoffcc
 PROGRAM clickoffcc
 BEGIN
 	call opt2.ed_macc.setvalue ""
 END
 
 	
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	put "mar "

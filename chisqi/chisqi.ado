@@ -103,6 +103,7 @@ end
 
 version 12
 mata:
+//# get_results
 void get_results(string scalar data, string scalar results, string scalar res_chi2, string scalar res_p)
 {
 	string matrix d

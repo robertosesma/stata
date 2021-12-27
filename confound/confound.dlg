@@ -13,6 +13,7 @@ INCLUDE header
 HELP hlp1, view("help confound")
 RESET res1
 
+**# DIALOG main
 DIALOG main, tabtitle("Model") title("confound - Modelling confounding")
 BEGIN
     DEFINE _x _xsetbu
@@ -52,6 +53,7 @@ END
 
 INCLUDE ifin
 
+**# DIALOG weights
 DIALOG weights, tabtitle(resource "Weights")
 BEGIN
   TEXT     tx_wgttyp _lft      _top      _cwd1     ., label("Weight type:")
@@ -79,6 +81,7 @@ LIST type_values
 		cox
 	END
 
+**# PROGRAM wgt_on
 PROGRAM wgt_on
 BEGIN
 	call weights.tx_wgt.enable
@@ -86,6 +89,7 @@ BEGIN
 	call weights.tx_wgt.setlabel "Sampling weight:"
 END
 
+**# PROGRAM wgt_off
 PROGRAM wgt_off
 BEGIN
 	call weights.tx_wgt.disable
@@ -93,7 +97,7 @@ BEGIN
 	call weights.tx_wgt.setlabel "Weight:"
 END
 
-
+**# PROGRAM change_type
 PROGRAM change_type
 BEGIN
 	//Show/hide and move controls
@@ -114,6 +118,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	put "confound "

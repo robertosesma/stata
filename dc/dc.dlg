@@ -13,6 +13,7 @@ INCLUDE header
 HELP hlp1, view("help dc")
 RESET res1
 
+**# DIALOG main
 DIALOG main, label("dc - Data Check") tabtitle("Main")
 BEGIN
 	TEXT  		tx_vars 	_lft   _top 	300  	., label("Variables:")
@@ -45,6 +46,7 @@ BEGIN
 	EDIT    	ed_ddu 	    +65	   @		100		., label("Maximum Data Difference") option(ddu)	
 END
 
+**# DIALOG opt
 DIALOG opt, tabtitle("Options and Logical Checks")
 BEGIN
 	GROUPBOX	gb_opt		_lft   _top		405    95, label("Options")
@@ -84,6 +86,7 @@ LIST dd_units
 	END
 
 
+**# PROGRAM isid_on
 PROGRAM isid_on
 BEGIN
 	call main.tx_id.disable
@@ -95,12 +98,14 @@ BEGIN
 	call main.cb_date2.setoff
 END
 
+**# PROGRAM isid_off
 PROGRAM isid_off
 BEGIN
 	call main.tx_id.enable
 	call main.vl_ids.enable
 END
 
+**# PROGRAM range_on
 PROGRAM range_on
 BEGIN
 	call main.tx_range.enable
@@ -112,6 +117,7 @@ BEGIN
 	call main.cb_date2.setoff
 END
 
+**# PROGRAM range_off
 PROGRAM range_off
 BEGIN
 	call main.tx_range.disable
@@ -120,6 +126,7 @@ BEGIN
 	call main.ed_range.setvalue ""
 END
 
+**# PROGRAM dict_on
 PROGRAM dict_on
 BEGIN
 	call main.fi_dict.enable
@@ -131,6 +138,7 @@ BEGIN
 	call main.cb_date2.setoff
 END
 
+**# PROGRAM dict_off
 PROGRAM dict_off
 BEGIN
 	call main.fi_dict.disable
@@ -140,6 +148,7 @@ BEGIN
 	call main.ed_key.setvalue ""
 END
 
+**# PROGRAM date1_on
 PROGRAM date1_on
 BEGIN
 	call main.tx_di.enable
@@ -153,6 +162,7 @@ BEGIN
 	call main.cb_date2.setoff
 END
 
+**# PROGRAM date1_off
 PROGRAM date1_off
 BEGIN
 	call main.tx_di.disable
@@ -164,6 +174,7 @@ BEGIN
 	call main.ed_df.setvalue ""
 END
 
+**# PROGRAM date2_on
 PROGRAM date2_on
 BEGIN
 	call main.tx_dd.enable
@@ -180,6 +191,7 @@ BEGIN
 	call main.cb_date1.setoff
 END
 
+**# PROGRAM date2_off
 PROGRAM date2_off
 BEGIN
 	call main.tx_dd.disable
@@ -197,6 +209,7 @@ BEGIN
 END
 
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	put "dc "

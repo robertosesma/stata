@@ -20,6 +20,7 @@ DEFINE _x _lft
 DEFINE _y 240
 DEFINE _cx 100
 
+**# DIALOG main
 DIALOG main, label("dtroc - ROC Analysis & Optimal Cutoff Point") tabtitle("Main")
 BEGIN
 	TEXT  		tx_ref 	_lft   _top 	_iwd  	., label("Reference variable:")
@@ -39,6 +40,7 @@ END
 
 INCLUDE ifin
 
+**# DIALOG opt
 DIALOG opt, tabtitle("Options")
 BEGIN
 	EDIT		ed_ic		_lft  	_top    _spwd	., numonly default(1) option(ic)
@@ -67,12 +69,14 @@ BEGIN
 	INCLUDE _sp_level
 END
 
+**# PROGRAM activate
 PROGRAM activate
 BEGIN
 	call opt.fl_using.enable
 	call opt.cb_noreplace.enable
 END
 
+**# PROGRAM deactivate
 PROGRAM deactivate
 BEGIN
 	call opt.fl_using.disable
@@ -80,6 +84,7 @@ BEGIN
 END
 
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	require main.v_ref main.v_clas

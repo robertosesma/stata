@@ -14,7 +14,7 @@ INCLUDE header
 HELP hlp1, view("help allsets")
 RESET res1
 
-
+**# DIALOG main
 DIALOG main, tabtitle("Model") title("allsets - Best subset for regression")
 BEGIN
 	TEXT 		tx_type	_lft	_top	100		.,	label("Regression type:")
@@ -49,6 +49,7 @@ END
 
 INCLUDE ifin
 
+**# DIALOG weights
 DIALOG weights, tabtitle(resource "Weights")
 BEGIN
   TEXT     tx_wgttyp _lft      _top      _cwd1     ., label("Weight type:")
@@ -75,6 +76,7 @@ LIST type_values
 		cox
 	END
 
+**# PROGRAM wgt_on
 PROGRAM wgt_on
 BEGIN
 	call weights.tx_wgt.enable
@@ -82,6 +84,7 @@ BEGIN
 	call weights.tx_wgt.setlabel "Sampling weight:"
 END
 
+**# PROGRAM wgt_off
 PROGRAM wgt_off
 BEGIN
 	call weights.tx_wgt.disable
@@ -90,6 +93,7 @@ BEGIN
 END
 
 
+**# PROGRAM change_type
 PROGRAM change_type
 BEGIN
 	//Show/hide and move controls
@@ -109,6 +113,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	put "allsets "

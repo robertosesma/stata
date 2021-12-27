@@ -21,6 +21,7 @@ DEFINE _x _lft
 DEFINE _y 90
 DEFINE _cx 100
 
+**# DIALOG main
 DIALOG main, label("cohenkap - Weighted kappa") tabtitle("Main")
 BEGIN
 	TEXT  		tx_ratY	_lft  _y_vars   _var_w	., label("Rater Y variable:") left
@@ -54,6 +55,7 @@ LIST ci_values
 	END
 
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	INCLUDE _by_pr

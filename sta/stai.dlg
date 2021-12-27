@@ -37,6 +37,7 @@ DEFINE _y7		320
 DEFINE _y8		360
 
 
+**# SCRIPT PREINIT
 SCRIPT PREINIT
 BEGIN
 	create STRING cmd
@@ -45,6 +46,7 @@ BEGIN
 END
 
 
+**# DIALOG main
 DIALOG main, label("stai - Association Measures") tabtitle("Main")
 BEGIN
 	GROUPBOX	gb_data	_lft	_top	220		110, label("Data type")
@@ -80,6 +82,7 @@ BEGIN
 END
 
 
+**# DIALOG data
 DIALOG data, tabtitle("Data")
 BEGIN
 	TEXT  		tx_u 	165  	25		90	., label("Unexposed") center
@@ -166,6 +169,7 @@ BEGIN
 END
 
 
+**# DIALOG opt
 DIALOG opt, tabtitle("Options")
 BEGIN
 	INCLUDE _sp_level
@@ -203,6 +207,7 @@ BEGIN
 END
 
 
+**# PROGRAM type_freq
 PROGRAM type_freq
 BEGIN
 	call program show_st
@@ -228,6 +233,7 @@ BEGIN
 	call main.cb_relsym.hide
 END
 
+**# PROGRAM type_pt
 PROGRAM type_pt
 BEGIN
 	call program hide_st
@@ -257,6 +263,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM type_paired
 PROGRAM type_paired
 BEGIN
 	call program hide_st
@@ -278,6 +285,7 @@ BEGIN
 	call data.tx_nc.setlabel "Y (-)"
 END
 
+**# PROGRAM hide_str
 PROGRAM hide_str
 BEGIN
 	call data.cb_str.setoff
@@ -289,6 +297,7 @@ BEGIN
 	call opt.rb_es.hide
 END
 
+**# PROGRAM show_str
 PROGRAM show_str
 BEGIN
 	call data.cb_str.show
@@ -300,6 +309,7 @@ BEGIN
 	call data.cb_str.setoff
 END
 
+**# PROGRAM st_co
 PROGRAM st_co
 BEGIN
 	if data.cb_str {
@@ -348,6 +358,7 @@ BEGIN
 
 END
 
+**# PROGRAM st_cc
 PROGRAM st_cc
 BEGIN
 	if !data.cb_str {
@@ -381,6 +392,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM detail_on
 PROGRAM detail_on
 BEGIN
 	if main.rb_freq {
@@ -401,6 +413,7 @@ BEGIN
 	}	
 END
 
+**# PROGRAM detail_off
 PROGRAM detail_off
 BEGIN
 	call main.cb_rare.hide
@@ -409,6 +422,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM stratify_on
 PROGRAM stratify_on
 BEGIN
 	call opt.gb_method.enable
@@ -452,6 +466,7 @@ BEGIN
 	}	
 END
 
+**# PROGRAM stratify_off
 PROGRAM stratify_off
 BEGIN
 	call opt.gb_method.disable
@@ -499,6 +514,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM show_or_ci
 PROGRAM show_or_ci
 BEGIN
 	call opt.gb_orci.show
@@ -507,6 +523,7 @@ BEGIN
 	call opt.rb_woolf.show
 END
 
+**# PROGRAM hide_or_ci
 PROGRAM hide_or_ci
 BEGIN
 	call opt.gb_orci.hide
@@ -515,6 +532,7 @@ BEGIN
 	call opt.rb_woolf.hide
 END
 
+**# PROGRAM show_hide_str
 PROGRAM show_hide_str
 BEGIN
 	if data.cb_str {
@@ -641,6 +659,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM show_hide_2x2
 PROGRAM show_hide_2x2
 BEGIN
 	if data.cb_str {
@@ -671,6 +690,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM show_pe
 PROGRAM show_pe
 BEGIN
 	call main.gb_xtr.hide
@@ -682,6 +702,7 @@ BEGIN
 	call main.tx_r.hide
 END
 
+**# PROGRAM show_rpe
 PROGRAM show_rpe
 BEGIN
 	call main.gb_xtr.show
@@ -693,6 +714,7 @@ BEGIN
 	call main.tx_r.show
 END
 
+**# PROGRAM hide_rpe
 PROGRAM hide_rpe
 BEGIN
 	call main.gb_xtr.hide
@@ -704,6 +726,7 @@ BEGIN
 	call main.tx_r.hide
 END
 
+**# PROGRAM show_ci_p_zero
 PROGRAM show_ci_p_zero
 BEGIN
 	call opt.gb_ci.show
@@ -720,6 +743,7 @@ BEGIN
 	call program show_zero
 END
 
+**# PROGRAM show_zero
 PROGRAM show_zero
 BEGIN
 	call opt.gb_zero.show
@@ -730,6 +754,7 @@ BEGIN
 	call opt.rb_r.show
 END
 
+**# PROGRAM hide_zero
 PROGRAM hide_zero
 BEGIN
 	call opt.gb_zero.hide
@@ -740,6 +765,7 @@ BEGIN
 	call opt.rb_r.hide
 END
 
+**# PROGRAM hide_ci_p
 PROGRAM hide_ci_p
 BEGIN
 	call opt.gb_ci.hide
@@ -752,6 +778,7 @@ BEGIN
 	call opt.rb_chi_mh.hide
 END
 
+**# PROGRAM show_st
 PROGRAM show_st
 BEGIN
 	call main.gb_st.show
@@ -761,6 +788,7 @@ BEGIN
 	call main.rb_cc.show
 END
 
+**# PROGRAM hide_st
 PROGRAM hide_st
 BEGIN
 	call main.gb_st.hide
@@ -770,6 +798,7 @@ BEGIN
 	call main.rb_cc.hide
 END
 
+**# PROGRAM enable_disable_st
 PROGRAM enable_disable_st
 BEGIN
 	if data.cb_str {
@@ -785,6 +814,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM hide_nnt
 PROGRAM hide_nnt
 BEGIN
 	call opt.cb_nnt.hide
@@ -792,6 +822,7 @@ BEGIN
 	call opt.tx_nnt.hide
 END
 
+**# PROGRAM show_nnt
 PROGRAM show_nnt
 BEGIN
 	call opt.cb_nnt.show
@@ -799,12 +830,14 @@ BEGIN
 	call opt.tx_nnt.show
 END
 
+**# PROGRAM nnt_off
 PROGRAM nnt_off
 BEGIN
 	call opt.tx_nnt.disable
 	call opt.ed_nnt.disable
 END
 
+**# PROGRAM nnt_on
 PROGRAM nnt_on
 BEGIN
 	call opt.tx_nnt.enable
@@ -812,6 +845,7 @@ BEGIN
 END
 
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	if !data.cb_str {

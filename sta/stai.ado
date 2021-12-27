@@ -1606,6 +1606,7 @@ end
 
 version 12
 mata:
+//# get_totals
 void get_totals(string scalar data, string scalar stratum, string scalar type)
 {
 	real matrix d, str, sub, t
@@ -1659,6 +1660,7 @@ end
 
 version 12
 mata:
+//# get_data_matrix
 void get_data_matrix(string scalar data, string scalar m, string scalar type)
 {
 	string matrix t

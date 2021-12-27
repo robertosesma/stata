@@ -23,6 +23,7 @@ DEFINE _x _lft
 DEFINE _y _top
 DEFINE _cx 100
 
+**# DIALOG main
 DIALOG main, label("sta - Association Measures") tabtitle("Main")
 BEGIN
 	GROUPBOX	gb_data	_lft	_top	220		110, label("Data type")
@@ -66,6 +67,7 @@ END
 
 INCLUDE ifin
 
+**# DIALOG opt
 DIALOG opt, tabtitle("Options")
 BEGIN
 	INCLUDE _sp_level
@@ -108,6 +110,7 @@ BEGIN
 END
 
 
+**# PROGRAM type_freq
 PROGRAM type_freq
 BEGIN
 	call program show_st
@@ -136,6 +139,7 @@ BEGIN
 	call main.cb_relsym.hide
 END
 
+**# PROGRAM type_pt
 PROGRAM type_pt
 BEGIN
 	call program hide_st
@@ -153,6 +157,7 @@ BEGIN
 	call program hide_or_ci
 END
 
+**# PROGRAM type_paired
 PROGRAM type_paired
 BEGIN
 	call program hide_st
@@ -172,6 +177,7 @@ BEGIN
 	call program hide_or_ci
 END
 
+**# PROGRAM hide_str
 PROGRAM hide_str
 BEGIN
 	call opt.cb_str.hide
@@ -183,6 +189,7 @@ BEGIN
 	call opt.rb_es.hide
 END
 
+**# PROGRAM show_str
 PROGRAM show_str
 BEGIN
 	call opt.cb_str.show
@@ -195,6 +202,7 @@ BEGIN
 	call opt.cb_str.setoff
 END
 
+**# PROGRAM st_co
 PROGRAM st_co
 BEGIN
 	if opt.cb_str {
@@ -223,6 +231,7 @@ BEGIN
 	call main.cb_rare.hide
 END
 
+**# PROGRAM st_cc
 PROGRAM st_cc
 BEGIN
 	if !opt.cb_str {
@@ -243,6 +252,7 @@ BEGIN
 	call program hide_nnt
 END
 
+**# PROGRAM detail_on
 PROGRAM detail_on
 BEGIN
 	if main.rb_freq {
@@ -263,6 +273,7 @@ BEGIN
 	}	
 END
 
+**# PROGRAM detail_off
 PROGRAM detail_off
 BEGIN
 	call main.cb_rare.hide
@@ -271,6 +282,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM stratify_on
 PROGRAM stratify_on
 BEGIN
 	call opt.v_str.enable
@@ -292,6 +304,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM stratify_off
 PROGRAM stratify_off
 BEGIN
 	call opt.v_str.disable
@@ -313,6 +326,7 @@ BEGIN
 	call program hide_or_ci
 END
 
+**# PROGRAM show_or_ci
 PROGRAM show_or_ci
 BEGIN
 	call opt.gb_orci.show
@@ -321,6 +335,7 @@ BEGIN
 	call opt.rb_woolf.show
 END
 
+**# PROGRAM hide_or_ci
 PROGRAM hide_or_ci
 BEGIN
 	call opt.gb_orci.hide
@@ -329,6 +344,7 @@ BEGIN
 	call opt.rb_woolf.hide
 END
 
+**# PROGRAM show_pe
 PROGRAM show_pe
 BEGIN
 	call main.gb_xtr.hide
@@ -340,6 +356,7 @@ BEGIN
 	call main.tx_r.hide
 END
 
+**# PROGRAM show_rpe
 PROGRAM show_rpe
 BEGIN
 	call main.gb_xtr.show
@@ -351,6 +368,7 @@ BEGIN
 	call main.tx_r.show
 END
 
+**# PROGRAM hide_rpe
 PROGRAM hide_rpe
 BEGIN
 	call main.gb_xtr.hide
@@ -362,6 +380,7 @@ BEGIN
 	call main.tx_r.hide
 END
 
+**# PROGRAM show_ci_p_zero
 PROGRAM show_ci_p_zero
 BEGIN
 	call opt.gb_ci.show
@@ -378,6 +397,7 @@ BEGIN
 	call program show_zero
 END
 
+**# PROGRAM show_zero
 PROGRAM show_zero
 BEGIN
 	call opt.gb_zero.show
@@ -388,6 +408,7 @@ BEGIN
 	call opt.rb_r.show
 END
 
+**# PROGRAM hide_zero
 PROGRAM hide_zero
 BEGIN
 	call opt.gb_zero.hide
@@ -398,6 +419,7 @@ BEGIN
 	call opt.rb_r.hide
 END
 
+**# PROGRAM hide_ci_p
 PROGRAM hide_ci_p
 BEGIN
 	call opt.gb_ci.hide
@@ -410,18 +432,21 @@ BEGIN
 	call opt.rb_chi_mh.hide
 END
 
+**# PROGRAM hide_pt
 PROGRAM hide_pt
 BEGIN
 	call main.tx_pt.hide
 	call main.v_pt.hide
 END
 
+**# PROGRAM show_pt
 PROGRAM show_pt
 BEGIN
 	call main.tx_pt.show
 	call main.v_pt.show
 END
 
+**# PROGRAM show_st
 PROGRAM show_st
 BEGIN
 	call main.gb_st.show
@@ -431,6 +456,7 @@ BEGIN
 	call main.rb_cc.show
 END
 
+**# PROGRAM hide_st
 PROGRAM hide_st
 BEGIN
 	call main.gb_st.hide
@@ -440,6 +466,7 @@ BEGIN
 	call main.rb_cc.hide
 END
 
+**# PROGRAM enable_disable_st
 PROGRAM enable_disable_st
 BEGIN
 	if opt.cb_str {
@@ -458,6 +485,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM set_var_names
 PROGRAM set_var_names
 BEGIN
 	if main.rb_freq | main.rb_pt {
@@ -470,6 +498,7 @@ BEGIN
 	}
 END
 
+**# PROGRAM hide_nnt
 PROGRAM hide_nnt
 BEGIN
 	call opt.cb_nnt.hide
@@ -477,6 +506,7 @@ BEGIN
 	call opt.tx_nnt.hide
 END
 
+**# PROGRAM show_nnt
 PROGRAM show_nnt
 BEGIN
 	call opt.cb_nnt.show
@@ -484,12 +514,14 @@ BEGIN
 	call opt.tx_nnt.show
 END
 
+**# PROGRAM nnt_off
 PROGRAM nnt_off
 BEGIN
 	call opt.tx_nnt.disable
 	call opt.ed_nnt.disable
 END
 
+**# PROGRAM nnt_on
 PROGRAM nnt_on
 BEGIN
 	call opt.tx_nnt.enable
@@ -497,6 +529,7 @@ BEGIN
 END
 
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	put "sta "

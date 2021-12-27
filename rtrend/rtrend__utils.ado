@@ -488,6 +488,7 @@ end
 
 version 12
 mata:
+//# struct table2x2 
 struct table2x2 {
 	real scalar a1, b1, a0, b0, n0, n
 	real scalar risk, lb_risk, ub_risk, odds
@@ -504,6 +505,7 @@ end
 
 version 12
 mata:
+//# struct stratum 
 struct stratum {
 	struct table2x2 vector d
 }
@@ -511,6 +513,7 @@ end
 
 version 12
 mata:
+//# build_data_freq
 struct table2x2 vector build_data_freq(real matrix data, real scalar type, real scalar stat, string scalar rc, /*
 	*/ string scalar zero, real scalar adj, real scalar k2)
 {
@@ -610,6 +613,7 @@ end
 
 version 12
 mata:
+//# build_data_pt
 struct table2x2 vector build_data_pt(real matrix data, string scalar rc, real scalar level, real scalar adj)
 {
 	struct table2x2 vector d
@@ -682,6 +686,7 @@ end
 
 version 12
 mata:
+//# results_freq
 void results_freq(real scalar type, real scalar stat, string scalar data, string scalar results, /*
 	*/				real scalar method, real scalar level, string scalar rc, string scalar zero, real scalar k2)
 {
@@ -797,6 +802,7 @@ end
 
 version 12
 mata:
+//# results_pt
 void results_pt(string scalar data, string scalar results, real scalar level, string scalar rc, real scalar printci)
 {
 	struct table2x2 vector s
@@ -858,6 +864,7 @@ end
 
 version 12
 mata:
+//# compute_adj
 void compute_adj(string scalar data_type, real scalar stat, string scalar data, string scalar results, real scalar type, /*
 		*/		real scalar nstr, real scalar level, string scalar rc, string scalar zero)
 {
@@ -1149,6 +1156,7 @@ end
 
 version 12
 mata:
+//# compute_risk_and_ci
 void compute_risk_and_ci(struct table2x2 scalar t, real scalar method, real scalar level, real scalar k2)
 {
 	real scalar a, n, r, lb, ub, wa, wb, wc, z, alpha
@@ -1204,6 +1212,7 @@ end
 
 version 12
 mata:
+//# compute_ratio
 void compute_ratio(struct table2x2 t, real scalar stat, real scalar level)
 {
 	if (!t.overall) {
@@ -1230,6 +1239,7 @@ end
 
 version 12
 mata:
+//# zero_correction
 void zero_correction(struct table2x2 scalar t, real scalar type, string scalar zero)
 {
 /*
@@ -1303,6 +1313,7 @@ void zero_correction(struct table2x2 scalar t, real scalar type, string scalar z
 
 version 12
 mata:
+//# get_refvector
 real colvector get_refvector(real colvector d, string scalar rc)
 {
 	real colvector ref
@@ -1330,6 +1341,7 @@ end
 
 version 12
 mata:
+//# get_array
 void get_array(string scalar s, string scalar token, string scalar res)
 {
 	string matrix d
@@ -1346,7 +1358,8 @@ end
 
 version 12
 mata:
-void get_overall (string scalar data, real scalar nstr, string scalar over)
+//# get_overall
+void get_overall(string scalar data, real scalar nstr, string scalar over)
 {
 	real matrix d, o, a, b, m
 	real scalar i

@@ -19,6 +19,7 @@ DEFINE _y _top
 DEFINE _cx 100
 
 
+**# DIALOG main
 DIALOG main, label("rtrend - Trend Test") tabtitle("Main")
 BEGIN
 	GROUPBOX	gb_data	_lft	_top	130		90, label("Data type")
@@ -55,6 +56,7 @@ END
 
 INCLUDE ifin
 
+**# DIALOG opt
 DIALOG opt, tabtitle("Options")
 BEGIN
 	INCLUDE _sp_level
@@ -78,6 +80,7 @@ BEGIN
 	RADIO		rb_zr	@		_ss		130		., label("Reciprocal") last option(zero(r))
 END
 
+**# PROGRAM type_freq
 PROGRAM type_freq
 BEGIN
 	// hide person-time var
@@ -115,6 +118,7 @@ BEGIN
 	call opt.rb_none.seton
 END
 
+**# PROGRAM type_pt
 PROGRAM type_pt
 BEGIN
 	// show person-time var
@@ -152,6 +156,7 @@ BEGIN
 	call opt.rb_exac.setposition . 80 . .
 END
 
+**# PROGRAM st_co
 PROGRAM st_co
 BEGIN
 	// cohort: adapt 2k text
@@ -164,6 +169,7 @@ BEGIN
 	call main.rb_rr.seton
 END
 
+**# PROGRAM st_cc
 PROGRAM st_cc
 BEGIN
 	// case-control: adapt 2k text
@@ -177,6 +183,7 @@ BEGIN
 END
 
 
+**# PROGRAM command
 PROGRAM command
 BEGIN
 	put "rtrend "
