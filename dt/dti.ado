@@ -1,4 +1,4 @@
-*! version 1.1.9  26jun2020 JM. Domenech, R. Sesma
+*! version 1.2.0  26jan2022 JM. Domenech, R. Sesma
 /*
 dti: Diagnostics Tests (immediate command)
 For cross-sectional and case-control studies 4 elements are provided: a1 a0 b1 b0
@@ -87,13 +87,19 @@ program define dti, rclass
 		local row2 = "Negative"
 	}
 	else {
-		local coltitle = abbrev("`_ref'",21)
+		* if possible, show variable label abbreviated (v1.2.0)
+		local coltitle : variable label `_ref'
+		local coltitle = cond("`coltitle'"=="","`_ref'","`coltitle'")
+		local coltitle = abbrev("`coltitle'",19)
 		tokenize `_vref'
 		local col1: label (`_ref') `1'
 		local col1 = abbrev("`col1'",9)
 		local col2: label (`_ref') `2'
 		local col2 = abbrev("`col2'",9)
-		local rowtitle = abbrev("`_test'",16)
+		* if possible, show variable label abbreviated (v1.2.0)
+		local rowtitle : variable label `_test'
+		local rowtitle = cond("`rowtitle'"=="","`_test'","`rowtitle'")
+		local rowtitle = abbrev("`rowtitle'",15)
 		tokenize `_vtest'
 		local row1: label (`_test') `2'
 		local row1 = abbrev("`row1'",16)
@@ -330,13 +336,26 @@ program define dti, rclass
 		print_pct `fn_pct'
 		if (`lrp'<1 & `lrn'<1) di as txt "{ralign 22:inverse -} = " as res %7.0g 1/`lrn'
 		else di as txt " "
+		if (`len'==4) {
+			* if available, print sample prevalence (v1.2.0)
+			local prev = 100*(`m1t'/`nt')
+			di "Sample prevalence = " _c
+			print_pct `prev'
+			di " "
+		}
 
 		di
 		di as txt "(Pre-test Prob.){c |} (Post-test Probability) {c |} Correctly  {c |}"
 		di as txt "  Hypothetical  {c |}    Predictive Values*   {c |} classified {c |}"
 		di as txt "   Prevalence   {c |}  Positive  {c |}  Negative  {c |}(Efficiency){c |}"
 		di as txt "{hline 16}{c +}{hline 12}{c +}{hline 12}{c +}{hline 12}{c RT}"
-
+		if (`len'==4) {
+			* if available, print sample prevalence (v1.2.0)
+			di as txt "Sample " _c
+			print_pct `prev'
+			di _col(17) "{c |}" _col(30) "{c |}" _col(43) "{c |}" _col(56) "{c |}"
+		}
+		
 		tempname pr
 		local first 1
 		foreach i in `p' {

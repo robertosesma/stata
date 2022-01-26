@@ -667,8 +667,8 @@ program define get_results_tuto
 	}
 	
 	save, replace
-	export excel DNI T*_* using "results.xlsx", sheet("resultados") firstrow(variables) replace
-	*export delimited DNI T01_* using "results.csv", delimiter(";") datafmt replace
+	*export excel DNI T*_* using "results.xlsx", sheet("resultados") firstrow(variables) replace
+	export delimited DNI T01_* using "results.csv", delimiter(";") datafmt replace
 end
 
 program define PEC1
@@ -713,7 +713,7 @@ program define PEC1
 	qui count if ePEC1 == 0
 	if (r(N)>0) {
 		di "`r(N)' PEC1 no entregadas"
-		list grupo DNI nomcomp if ePEC1 ==0, noobs sep(0)
+		list grupo DNI nomcomp email if ePEC1 ==0, noobs sep(0)
 	}
 
 	qui count if hPEC1 == 0

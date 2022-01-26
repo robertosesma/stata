@@ -1,4 +1,4 @@
-*! version 1.1.9  26jun2020 JM. Domenech, R. Sesma
+*! version 1.2.0  26jan2022 JM. Domenech, R. Sesma
 /*
 dt: Diagnostics Tests
 Uses the dti inmediate command to compute and print results
