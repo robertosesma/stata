@@ -668,7 +668,19 @@ program define get_results_tuto
 	
 	save, replace
 	*export excel DNI T*_* using "results.xlsx", sheet("resultados") firstrow(variables) replace
-	export delimited DNI T01_* using "results.csv", delimiter(";") datafmt replace
+	*** exportar a texto delimitado para db Abel
+	preserve
+	foreach v of varlist T01_* {
+		local n = subinstr("`v'","T","P",.)
+		local fmt : format `v'
+		local fmt = subinstr("`fmt'",".",",",.)
+		generate str `n' = string(`v',"`fmt'")
+	}
+	generate any = substr(grupo,4,2)
+	generate grup = substr(grupo,6,2)
+	export delimited curso any grup DNI P*_* using "results.csv", delimiter(",") quote replace
+	restore
+
 end
 
 program define PEC1
