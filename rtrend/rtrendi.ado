@@ -1,4 +1,4 @@
-*! version 1.2.7  30dec2019 JM. Domenech, R. Sesma
+*! version 1.2.8  25feb2022 JM. Domenech, R. Sesma
 /*
 rtrendi: Trend Test - inmediate command
 */
@@ -49,16 +49,18 @@ program define rtrendi, rclass
 	local ldec 0
 	local count0 0
 	local count 0
+	local lmetric 1
 	local len : word count `anything'
 	foreach i of numlist 1/`len' {
 		local n : word `i' of `anything'
 		if ("`n'"!="\") {
 			confirm number `n'
 			if (`n'<0) print_error "data invalid -- all the values must be >=0"
-			if (mod(`n',1)!=0) local ldec 1
+			if (mod(`n',1)!=0 & !`lmetric') local ldec 1
 			local count = `count'+1
 		}
 		else {
+			local lmetric 0
 			if (`count0'>0 & `count'!=`count0') print_error "data invalid -- metric and a, n|b|t numlists must have the same number of elements"
 			local count0 = `count'
 			local count 0
