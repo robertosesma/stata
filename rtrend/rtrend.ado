@@ -1,11 +1,11 @@
-*! version 1.2.8  25feb2022 JM. Domenech, R. Sesma
+*! version 1.2.9  08mar2022 JM. Domenech, R. Sesma
 /*
 rtrend: Trend Test using current data
 */
 
 program define rtrend, rclass
 	version 12
-	syntax varlist(min=2 max=3 numeric) [if] [in], /*
+	syntax varlist(min=2 max=3 numeric) [if] [in] [fw], /*
 	*/	[Data(string) ST(string) Zero(string) Level(numlist max=1 >50 <100)  /*
 	*/	 metric(numlist >=0) RC(string) NOne Wilson Exact WAld BY(varname) nst(string)]
 
@@ -17,6 +17,8 @@ program define rtrend, rclass
 	if ("`data'"!="freq" & "`data'"!="pt") print_error "data() invalid -- invalid value"
 
 	if ("`data'"=="pt" & "`st'"!="") print_error "st() option not compatible with person-time data"
+	if ("`data'"=="pt" & "`weight'"!="") print_error "weight not compatible with person-time data"
+	local w = cond("`weight'"!="","[`weight' `exp']","")
 	
 	*Type of study & statistic
 	if ("`st'"=="") local st = "co rr"
@@ -52,13 +54,13 @@ program define rtrend, rclass
 	
 	tokenize `varlist'
 	local res `1'						//Response (row) variable
-	local exp `2'						//Exposure (column) variable
+	local expo `2'						//Exposure (column) variable
 	if ("`data'"=="pt") local time `3'	//Time variable (for person-time data)
 	else local time ""
 
 	*Mark observations [if/in]
 	marksample touse, novarlist
-	qui count if `touse'
+	qui count if `touse'			// total cases without weight
 	local total = r(N)
 	if (`total'==0) print_error "no data selected"
 	
@@ -67,7 +69,7 @@ program define rtrend, rclass
 	mata: st_matrix("`R'",strtoreal(tokens(st_local("t"))))
 	local rk = colsof(`R')
 
-	qui levelsof `exp' if `touse', local(t)			//Exposure variable
+	qui levelsof `expo' if `touse', local(t)			//Exposure variable
 	mata: st_matrix("`E'",strtoreal(tokens(st_local("t"))))
 	local ek = colsof(`E')
 	
@@ -127,16 +129,16 @@ program define rtrend, rclass
 	}
 
 	di
-	local l: variable label `exp'
-	di as txt "{bf:Exposure} variable: {bf:`exp'}" cond("`l'"!=""," - `l'","")
-	local dic: value label `exp' 
+	local l: variable label `expo'
+	di as txt "{bf:Exposure} variable: {bf:`expo'}" cond("`l'"!=""," - `l'","")
+	local dic: value label `expo' 
 	local len = colsof(`E')
 	local cat = `len'
 	foreach i of numlist 1/`len' {
 		if (!`lk2') local l = cond(`i'==1,"Categories:","")
 		if (`lk2') local l = cond(`i'==1,"NonExposed:","Exposed:")
 		local v = `E'[1,`i']
-		local lbl : label (`exp') `v'
+		local lbl : label (`expo') `v'
 		di as txt "{ralign 18:`l'} " `v' "{tab}" _c
 		if (!`lk2' & "`metric'"!="") di as txt "(" `M'[1,`i'] ") " _c
 		if ("`dic'"!="") di as txt "`lbl'"
@@ -163,17 +165,18 @@ program define rtrend, rclass
 	if (`lk2') {
 		//special situation: binary exposure variable, response with k(>2) categories: change roles to compute
 		local tmp `res'
-		local res `exp'
-		local exp `tmp'
+		local res `expo'
+		local expo `tmp'
 	}
 	
 	*Number of valid/total cases
 	if ("`data'"=="freq") {
-		qui tab `exp' `res' if `touse'
+		qui tab `expo' `res' if `touse' `w'
 		local valid = r(N)				//Number of valid cases
+		local total = cond("`weight'"!="",`valid',`total')		// if weighted data, total and valid cases are the same
 	}
 	if ("`data'"=="pt") {
-		markout `touse' `exp' `res' `time'
+		markout `touse' `expo' `res' `time'
 		qui count if `touse'			//Count number of valid cases
 		local valid = r(N)
 	}
@@ -190,20 +193,20 @@ program define rtrend, rclass
 			local s : word `i' of `stratum'
 			if ("`data'"=="freq") local tab_filter "& `strat'==`s'"
 			if ("`data'"=="pt") {
-				local collapse_by "`strat' `exp'"
+				local collapse_by "`strat' `expo'"
 				local mkmat_if "if `strat'==`s'"
 			}
 		}
 		else {
 			if ("`data'"=="freq") local tab_filter ""			
 			if ("`data'"=="pt") {
-				local collapse_by "`exp'"
+				local collapse_by "`expo'"
 				local mkmat_if ""
 			}
 		}
 		
 		if ("`data'"=="freq") {
-			qui tab `exp' `res' if `touse' `tab_filter', matcell(`f') chi2
+			qui tab `expo' `res' if `touse' `tab_filter' `w', matcell(`f') chi2
 			local chi2Pearson = r(chi2)		//Get Pearson chi2 from tabulate
 			*Build data matrix from tabulate data and metric
 			matrix colnames `f' = b a

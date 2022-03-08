@@ -1,7 +1,7 @@
 /*
   rtrend.dlg
 
-*! VERSION 1.2.8  25feb2022
+*! VERSION 1.2.9  08mar2022
 
 */
 
@@ -55,6 +55,7 @@ BEGIN
 END
 
 INCLUDE ifin
+INCLUDE weights_f
 
 **# DIALOG opt
 DIALOG opt, tabtitle("Options")
@@ -189,23 +190,20 @@ BEGIN
 	put "rtrend "
 	// variables
 	require main.v_exp main.v_resp
-	if main.rb_pt {
-		require main.v_time
-	}
 	put main.v_resp " " main.v_exp
 	if main.rb_pt {
+		require main.v_time
 		put " " main.v_time
 	}
 	// ifin
-	put " " /program ifin_output
+	//put " " /program ifin_output
+	INCLUDE _ifin_pr
+    INCLUDE _weights_pr
 	
 	beginoptions
 		option radio(main rb_freq rb_pt)					// data
-		
 		option radio(opt rb_rcf rb_rcl rb_rcp rb_rcs)		// rc
-		
 		optionarg main.v_str								// by
-		
 		optionarg main.ed_metr								// metric
 		
 		if main.rb_freq {

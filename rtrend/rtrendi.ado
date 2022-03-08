@@ -1,4 +1,4 @@
-*! version 1.2.8  25feb2022 JM. Domenech, R. Sesma
+*! version 1.2.9  08mar2022 JM. Domenech, R. Sesma
 /*
 rtrendi: Trend Test - inmediate command
 */

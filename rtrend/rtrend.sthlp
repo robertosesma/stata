@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.2.8 25feb2022}{...}
+{* *! version 1.2.9 08mar2022}{...}
 {viewerdialog rtrend "dialog rtrend"}{...}
 {viewerdialog rtrendi "dialog rtrendi"}{...}
 {viewerjumpto "Syntax" "rtrend##syntax"}{...}
@@ -22,7 +22,7 @@
 
 {p 8 12 2}
 {cmd:rtrend} {it:var_response} {it:var_exposure}
-{ifin}{cmd:,} data({bf:freq}) [{it:{help rtrend##options:options}}]
+{ifin} {weight}{cmd:,} data({bf:freq}) [{it:{help rtrend##options:options}}]
 
 
 {phang}Syntax for {bf:person-time} analysis
@@ -117,6 +117,7 @@ by default: {bf:rr} for {bf:co} study, {bf:pr} for {bf:cs} study, {bf:or} for {b
 {space 14}add k1=1/M0 and k0=1/M1 for {bf:cc} studies{break}
 The recommended correction is {bf:reciprocal}{p_end}
 {synoptline}
+{p 4 4 2}{bf:fweight} is allowed for frequency analysis; see {help weight:weight}.{p_end}
 
 {marker description}{...}
 {title:Description}
@@ -227,7 +228,7 @@ The command stores the following in {cmd:r()}:
 {title:Version}
 
 {p 4}
-Version 1.2.8 {hline 2} 25 February 2022
+Version 1.2.9 {hline 2} 08 March 2022
 
 
 {marker authors}{...}
@@ -245,7 +246,7 @@ stata@metodo.uab.cat{break}
 
 {p 4 6 2}
 Dom{c e'}nech JM. Trend Test: User-written command rtrend for Stata [computer program].{break}
-V1.2.8. Bellaterra: Universitat Aut{c o'g}noma de Barcelona; 2022.{break}
+V1.2.9. Bellaterra: Universitat Aut{c o'g}noma de Barcelona; 2022.{break}
 Available executing from Stata: net from http://metodo.uab.cat/stata{p_end}
 
 
