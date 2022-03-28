@@ -1,4 +1,4 @@
-*! version 1.1.5  17mar2021
+*! version 1.1.6  28mar2022
 program sta__utils
 	version 12.0
 	gettoken subcmd 0 : 0

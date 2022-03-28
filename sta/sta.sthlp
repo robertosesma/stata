@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.1.5 17mar2021}{...}
+{* *! version 1.1.6 28mar2022}{...}
 {title:Association measures}
 {viewerdialog sta "dialog sta"}{...}
 {viewerdialog stai "dialog stai"}{...}
@@ -57,7 +57,7 @@ If you find any bugs or want to suggest any improvements, please send an e-mail 
 {title:Version}
 
 {p 4}
-Version 1.1.5 {hline 2} 17 March 2021
+Version 1.1.6 {hline 2} 28 March 2022
 
 
 {marker authors}{...}
@@ -76,7 +76,7 @@ stata@metodo.uab.cat{p_end}
 {p 4 6 2}
 Dom{c e'}nech JM. Association Measures (frequency, person-time & paired data):{break}
 User-written command sta for Stata [computer program]{break}
-V1.1.5. Bellaterra: Universitat Aut{c o'g}noma de Barcelona; 2021.{break}
+V1.1.6. Bellaterra: Universitat Aut{c o'g}noma de Barcelona; 2022.{break}
 Available executing from Stata: net from http://metodo.uab.cat/stata{p_end}
 
 

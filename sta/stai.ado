@@ -1,4 +1,4 @@
-*! version 1.1.5  17mar2021 JM. Domenech, R. Sesma
+*! version 1.1.6  28mar2022 JM. Domenech, R. Sesma
 /*
 Association Measures - immediate data
 */
@@ -1008,6 +1008,18 @@ end
 program define print_paired_tables
 	syntax [anything], d(name) p(name) [exp(varname) res(varname) relatsymm]
 
+	tempname m
+	matrix `m' = `d'
+	if ("`relatsymm'"=="") {
+		*Swap 2x2 table rows for not relatsymm (JMD change v1.1.6)
+		matrix `m'[1,1] = `d'[2,1]
+		matrix `m'[1,2] = `d'[2,2]
+		matrix `m'[1,3] = `d'[2,3]
+		matrix `m'[2,1] = `d'[1,1]
+		matrix `m'[2,2] = `d'[1,2]
+		matrix `m'[2,3] = `d'[1,3]
+	}
+	
 	if ("`exp'"!="") {
 		*Get variable labels for exposure / response variables
 		sta__utils get_var_labels `exp', abb_name(23) abb_lbl(10)
@@ -1020,8 +1032,9 @@ program define print_paired_tables
 			sta__utils get_var_labels `res', abb_name(18) abb_lbl(10)
 			local c1 = substr("`res'",1,9)
 			local c2 = substr("`res'",10,.)
-			local row_lb1 = r(lbl1)
-			local row_lb2 = r(lbl0)
+			*Swap 2x2 table rows for not relatsymm (JMD change v1.1.6)
+			local row_lb2 = r(lbl1)
+			local row_lb1 = r(lbl0)
 		}
 		else {
 			local row_header = "CHANGE of"
@@ -1041,8 +1054,9 @@ program define print_paired_tables
 		if ("`relatsymm'"=="") {
 			local c1 "Response of"
 			local c2 " exposure Y"
-			local row_lb1 "(+)"
-			local row_lb2 "(-)"
+			*Swap 2x2 table rows for not relatsymm (JMD change v1.1.6)
+			local row_lb2 "(+)"
+			local row_lb1 "(-)"
 		}
 		else {
 			local c1 "CHANGE of Y"
@@ -1071,11 +1085,17 @@ program define print_paired_tables
 		if (`i'==3) di as txt _n "{hline 21}{c +}{hline 10}{c +}{hline 10}{c +}{hline 21}" _c
 		if (`i'==3) di as txt _n "{ralign 20:`row_lb`i''} {c |} " _c
 		foreach j of numlist 1/3 {
-			di as res %8.0g `d'[`i',`j'] _c
+			di as res %8.0g `m'[`i',`j'] _c
 			if (`j'<3) di as txt " {c |} " _c
 		}
-		if (`i'==1) di as res _col(57) %9.0g `p'[1,1] _c
-		if ("`relatsymm'"=="" & `i'==2) di as res _col(57) %9.0g `p'[1,3] _c
+		if ("`relatsymm'"=="") {
+			*Swap 2x2 table rows for not relatsymm (JMD change v1.1.6)
+			if (`i'==1) di as res _col(57) %9.0g `p'[1,3] _c
+			if (`i'==2) di as res _col(57) %9.0g `p'[1,1] _c
+		} 
+		else {
+			if (`i'==1) di as res _col(57) %9.0g `p'[1,1] _c
+		}
 	}
 	if ("`relatsymm'"=="") di as txt _n "{ralign 20:Proportion} {c |} " _c
 	if ("`relatsymm'"=="") di as res %8.0g `p'[1,4] _col(33) "{c |} " %8.0g `p'[1,2] " {c |}"
