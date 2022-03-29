@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.1.6 28mar2022}{...}
+{* *! version 1.1.7 29mar2022}{...}
 {viewerdialog sta "dialog sta"}{...}
 {viewerdialog stai "dialog stai"}{...}
 {viewerjumpto "Syntax" "sta_freq_str##syntax"}{...}

@@ -1,4 +1,4 @@
-*! version 1.1.6  28mar2022 JM. Domenech, R. Sesma
+*! version 1.1.7  29mar2022 JM. Domenech, R. Sesma
 /*
 Association Measures - immediate data
 */
@@ -1009,16 +1009,14 @@ program define print_paired_tables
 	syntax [anything], d(name) p(name) [exp(varname) res(varname) relatsymm]
 
 	tempname m
+	*Swap rows 1-2 2x2 table (JMD change v1.1.7)
 	matrix `m' = `d'
-	if ("`relatsymm'"=="") {
-		*Swap 2x2 table rows for not relatsymm (JMD change v1.1.6)
-		matrix `m'[1,1] = `d'[2,1]
-		matrix `m'[1,2] = `d'[2,2]
-		matrix `m'[1,3] = `d'[2,3]
-		matrix `m'[2,1] = `d'[1,1]
-		matrix `m'[2,2] = `d'[1,2]
-		matrix `m'[2,3] = `d'[1,3]
-	}
+	matrix `m'[1,1] = `d'[2,1]
+	matrix `m'[1,2] = `d'[2,2]
+	matrix `m'[1,3] = `d'[2,3]
+	matrix `m'[2,1] = `d'[1,1]
+	matrix `m'[2,2] = `d'[1,2]
+	matrix `m'[2,3] = `d'[1,3]
 	
 	if ("`exp'"!="") {
 		*Get variable labels for exposure / response variables
@@ -1032,7 +1030,7 @@ program define print_paired_tables
 			sta__utils get_var_labels `res', abb_name(18) abb_lbl(10)
 			local c1 = substr("`res'",1,9)
 			local c2 = substr("`res'",10,.)
-			*Swap 2x2 table rows for not relatsymm (JMD change v1.1.6)
+			*Swap rows 1-2 2x2 table (JMD change v1.1.7)
 			local row_lb2 = r(lbl1)
 			local row_lb1 = r(lbl0)
 		}
@@ -1040,8 +1038,9 @@ program define print_paired_tables
 			local row_header = "CHANGE of"
 			local c1 = abbrev("`res'",16)
 			local c2 = abbrev("`exp'",13)
-			local row_lb1 = "Yes"
-			local row_lb2 = "No"
+			*Swap rows 1-2 2x2 table (JMD change v1.1.7)
+			local row_lb2 = "Yes"
+			local row_lb1 = "No"
 		}
 	}
 	else {
@@ -1054,15 +1053,16 @@ program define print_paired_tables
 		if ("`relatsymm'"=="") {
 			local c1 "Response of"
 			local c2 " exposure Y"
-			*Swap 2x2 table rows for not relatsymm (JMD change v1.1.6)
+			*Swap rows 1-2 2x2 table (JMD change v1.1.7)
 			local row_lb2 "(+)"
 			local row_lb1 "(-)"
 		}
 		else {
 			local c1 "CHANGE of Y"
 			local c2 "   versus X"
-			local row_lb1 "Yes"
-			local row_lb2 " No"
+			*Swap rows 1-2 2x2 table (JMD change v1.1.7)
+			local row_lb2 "Yes"
+			local row_lb1 " No"
 		}
 	}
 	local row_lb3 "TOTAL"
@@ -1088,13 +1088,13 @@ program define print_paired_tables
 			di as res %8.0g `m'[`i',`j'] _c
 			if (`j'<3) di as txt " {c |} " _c
 		}
+		*Swap rows 1-2 2x2 table (JMD change v1.1.7)
 		if ("`relatsymm'"=="") {
-			*Swap 2x2 table rows for not relatsymm (JMD change v1.1.6)
 			if (`i'==1) di as res _col(57) %9.0g `p'[1,3] _c
 			if (`i'==2) di as res _col(57) %9.0g `p'[1,1] _c
-		} 
+		}
 		else {
-			if (`i'==1) di as res _col(57) %9.0g `p'[1,1] _c
+			if (`i'==2) di as res _col(57) %9.0g `p'[1,1] _c
 		}
 	}
 	if ("`relatsymm'"=="") di as txt _n "{ralign 20:Proportion} {c |} " _c
