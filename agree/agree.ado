@@ -1,4 +1,4 @@
-*! version 1.2.2  30apr2021 JM. Domenech, R. Sesma
+*! version 1.2.3  31mar2022 JM. Domenech, R. Sesma
 
 /*
 Agreement: Passing-Bablok & Bland-Altman methods
@@ -180,10 +180,10 @@ program agree, byable(recall) sortpreserve rclass
 			local reg = cond("`line'"=="","","(lfit `vx' `yx2')")
 			local ba_title = cond("`title'"=="","Bland-Altman Agreement","`title'")
 			graph twoway (scatter `vx' `yx2', mfcolor(none) msize(medium) mcolor(black)) `reg'	/*
-			*/	(function y = `bias', range(`x') lcolor(black) lpattern(solid))			/*
-			*/	(function y = `up', range(`x') lcolor(black) lpattern(dash))	/*
-			*/	(function y = `lo', range(`x') lcolor(black) lpattern(dash)) 			/*
-			*/	(function y = 0, range(`x') lcolor(black) lpattern(dash_dot)) if `touse', 			/*
+			*/	(function y = `bias', range(`yx2') lcolor(black) lpattern(solid))			/*
+			*/	(function y = `up', range(`yx2') lcolor(black) lpattern(dash))	/*
+			*/	(function y = `lo', range(`yx2') lcolor(black) lpattern(dash)) 			/*
+			*/	(function y = 0, range(`yx2') lcolor(black) lpattern(dash_dot)) if `touse', 			/*
 			*/	legend(off) ytitle("`c'", margin(small)) /*
 			*/  xtitle("Average (X+Y)/2", margin(small))	/*
 			*/	title("`ba_title' `ntitle'", margin(vsmall))  /*

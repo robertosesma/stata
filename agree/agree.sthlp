@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.2.2 30apr2021}{...}
+{* *! version 1.2.3 31mar2022}{...}
 {viewerdialog agree "dialog agree"}{...}
 {viewerjumpto "Syntax" "agree##syntax"}{...}
 {viewerjumpto "Description" "agree##description"}{...}
@@ -133,7 +133,7 @@ The command stores the following in {cmd:r()}:
 {title:Version}
 
 {p 4}
-Version 1.2.2 {hline 2} 30 April 2021
+Version 1.2.3 {hline 2} 31 March 2022
 
 
 {marker authors}{...}
@@ -151,7 +151,7 @@ stata@metodo.uab.cat{break}
 
 {p 4 6 2}
 Dom{c e'}nech JM. Passing-Bablok & Bland-Altman methods: User-written command agree for Stata [computer program].{break}
-V1.2.2. Bellaterra: Universitat Aut{c o'g}noma de Barcelona; 2021.{break}
+V1.2.3. Bellaterra: Universitat Aut{c o'g}noma de Barcelona; 2022.{break}
 Available executing from Stata: net from http://metodo.uab.cat/stata{p_end}
 
 
