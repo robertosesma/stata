@@ -1,4 +1,4 @@
-*! version 1.1.7  28jan2020 JM. Domenech, JB.Navarro, R. Sesma
+*! version 1.1.8  11apr2022 JM. Domenech, JB.Navarro, R. Sesma
 
 program confound
 	version 12
@@ -131,10 +131,12 @@ program confound
 
 	*Exposition categorical?
 	local exp_vars ""
+	local iscat 0
 	if (strpos("`exp'",".")>0) {
 		tempname exp_cat			//Values of the exposition var
 		qui tabulate `clean_exp', matrow(`exp_cat')
 		local ncat = rowsof(`exp_cat')
+		local iscat 1
 
 		local ib = substr("`exp'",1,strpos("`exp'",".")-1)
 		if ("`ib'"=="i") {
@@ -278,7 +280,7 @@ program confound
 	}
 
 	//Get results in Mata
-	mata: getresults("`dep'", "`clean_exp'", "`exp_vars'", "`varlist'", "`type'", "`int_terms'","`fixed_vars'","`w'")
+	mata: getresults("`dep'", "`clean_exp'", "`exp_vars'", `iscat', "`varlist'", "`type'", "`int_terms'","`fixed_vars'","`w'")
 
 	quietly {
 		tempname time
@@ -443,7 +445,7 @@ end
 version 12
 mata:
 //# getresults
-void getresults(string scalar dep, string scalar exp, string scalar exp_vars, string scalar indep, 	/*
+void getresults(string scalar dep, string scalar exp, string scalar exp_vars, real iscat, string scalar indep, 	/*
 */				string scalar type, string scalar int_terms, string scalar fixed, string scalar weight)
 {
 	struct confound_res scalar	r
@@ -454,8 +456,8 @@ void getresults(string scalar dep, string scalar exp, string scalar exp_vars, st
 	string rowvector inter, v_int, ev, evd, fixed_vars
 	string scalar nameint, term, name, vint
 	real scalar nint, lcat
-
-
+	
+	
 	r.dep = dep
 	r.exp = exp
 	r.names = tokens(indep)
@@ -469,7 +471,7 @@ void getresults(string scalar dep, string scalar exp, string scalar exp_vars, st
 	terms_labels = J(len,1,"")
 	for (i=1; i<=len; i++) {
 		term = ev[1,i]
-		if (len>1) {
+		if (iscat == 1) {
 			term = "_cnf87" + term
 			for (j=1; j<=len; j++) {
 				if (j!=i) term = term + " _cnf87" + ev[1,j]
@@ -482,7 +484,7 @@ void getresults(string scalar dep, string scalar exp, string scalar exp_vars, st
 	r.fixed = terms
 	r.fixed_names = terms_names
 	r.labels = terms_labels
-	if (len==1) r.labels[1,1]=""
+	if (iscat==0) r.labels[1,1]=""
 
 	//Fixed variables
 	fixed_vars = tokens(fixed)

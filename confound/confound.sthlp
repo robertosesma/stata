@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.1.7 28jan2020}{...}
+{* *! version 1.1.8 11apr2022}{...}
 {viewerdialog confound "dialog confound"}{...}
 {vieweralsosee "[R] regress" "help regress"}{...}
 {vieweralsosee "[R] logit" "help logit"}{...}
@@ -119,7 +119,7 @@ Cox regression
 {title:Version}
 
 {p 4}
-Version 1.1.7 {hline 2} 28 January 2020
+Version 1.1.8 {hline 2} 11 April 2022
 
 
 {marker authors}{...}
@@ -138,7 +138,7 @@ stata@metodo.uab.cat{p_end}
 {p 4 6 2}
 Dom{c e'}nech JM, Navarro JB. Find the best subset for Linear, Logistic and Cox Regression:{break}
 User-written command confound for Stata [computer program].{break}
-V1.1.7. Bellaterra: Universitat Aut{c o'g}noma de Barcelona; 2020.{break}
+V1.1.8. Bellaterra: Universitat Aut{c o'g}noma de Barcelona; 2022.{break}
 Available executing from Stata: net from http://metodo.uab.cat/stata{p_end}
 
 
