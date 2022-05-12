@@ -1,4 +1,4 @@
-*! version 1.0.8 30sep2019 JM. Domenech, R. Sesma
+*! version 1.0.9 12may2022 JM. Domenech, R. Sesma
 
 /*
 Kruskal-Wallis equality-of-populations rank test and non-parametric pairwise comparisons across the levels of factor variables
@@ -76,14 +76,15 @@ program define pwkwallis, rclass
 	}
 
 	*Print results
+	local len = cond(`adj',51,27)
 	di
 	di as res "Pairwise comparisons"
-	di as txt "{hline 13}{c TT}" cond(`adj',"{hline 62}","{hline 38}")
-	di as txt  _col(14) "{c |}" _col(40) "{ralign 13:Non corrected}" _c
+	di as txt "{hline 13}{c TT}{hline `len'}"
+	di as txt  _col(14) "{c |}" _col(29) "{ralign 13:Non corrected}" _c
 	if (`adj') di as txt "{ralign 8:Bonferr}{ralign 8:Holm}{ralign 8:Sidak}" _c
-	di as txt _n _col(14) "{c |}  {ralign 9:Contrast}  {ralign 9:Std. Err.}  {ralign 6:t}{ralign 8:P>|t|}" _c
+	di as txt _n _col(14) "{c |}  {ralign 9:Contrast}  {ralign 6:t}{ralign 8:P>|t|}" _c
 	if (`adj') di as txt "{ralign 8:P>|t|}{ralign 8:P>|t|}{ralign 8:P>|t|}" _c
-	di as txt _n "{hline 13}{c +}" cond(`adj',"{hline 62}","{hline 38}")
+	di as txt _n "{hline 13}{c +}{hline `len'}"
 	local c = abbrev("`by'",12)
 	di as txt "{ralign 12:`c'} {c |}" _c
 	local nrows = rowsof(`P')
@@ -93,14 +94,15 @@ program define pwkwallis, rclass
 		di as txt _newline "{ralign 12:`c'} {c |}" _c
 		forvalues j=1/`ncols' {
 			local fmt = cond(`j'<=2,"%9.0g",cond(`j'==3,"%6.0g","%6.4f"))
-			di as res "  " `fmt' `P'[`i',`j'] _c
+			if (`j'!=2) di as res "  " `fmt' `P'[`i',`j'] _c
 		}
 	}
-	di as txt _newline "{hline 13}{c BT}" cond(`adj',"{hline 62}","{hline 38}")
+	di as txt _n "{hline 13}{c BT}{hline `len'}"
 	
 	*Stored results
+	matrix `P' = (`P'[1..`nrows',1],`P'[1..`nrows',3..`ncols'])			// delete StdErr column
 	matrix rownames `P' = `rowlbls'
-	if (!`adj') matrix colnames `P' = Contrast StdErr t NonCorr
-	else matrix colnames `P' = Contrast StdErr t NonCorr Bonferr Holm Sidak
+	if (!`adj') matrix colnames `P' = Contrast t NonCorr
+	else matrix colnames `P' = Contrast t NonCorr Bonferr Holm Sidak
 	return matrix results = `P'
 end

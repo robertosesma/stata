@@ -6,7 +6,8 @@ program pecs
 		global dir = "C:\CorregirPECs"
 		global PEC1 = "C:\CorregirPECs\ST1\PEC1"
 		global mv = "move"
-		global reader = "C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe"
+		*global reader = "C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe"
+		global reader = "C:\Program Files\Adobe\Acrobat DC\Acrobat\Acrobat.exe"
 	}
 	global originales = "originales"
 	global corregidas = "corregidas"
@@ -304,7 +305,7 @@ program define getdta
 		order periodo curso DNI grupo nombre ape1 ape2 nomcomp PC fijo clase  ///
 		   ePEC1 hPEC1 entrega problema honor correg PEC copia IDcopia coment prov pobl trabajo email
 		* mantener solo los que asistieron a clase
-		keep if PC<.
+		*keep if PC<.
 		* eliminar variable labels
 		foreach v of varlist * {
 			label variable `v' ""
@@ -520,7 +521,7 @@ end
 
 program define alumnos
 	version 15
-	syntax [anything], dta(string) using(string)
+	syntax [anything], dta(string) using(string) year(string)
 
 	tempfile f
 
@@ -533,10 +534,13 @@ program define alumnos
 		}
 		keep periodo curso DNI grupo nombre ape1 ape2 nomcomp PC fijo clase entrega PEC0 PEC1 PEC NOTA copia IDcopia coment prov pobl trabajo email
 		drop if missing(NOTA)
+		gen año = "`year'"
 		save `f', replace
 		
 		use "`dta'", clear
 		append using `f'
+		
+		sort año periodo curso PC DNI
 	}
 	di "Proceso finalizado; datos no grabados"
 end

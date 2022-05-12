@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.0.8 30sep2019}{...}
+{* *! version 1.0.9 12may2022}{...}
 {viewerdialog pwkwallis "dialog pwkwallis"}{...}
 {vieweralsosee "[R] kwallis" "mansection R kwallis"}{...}
 {viewerjumpto "Syntax" "pwkwallis##syntax"}{...}
@@ -73,7 +73,7 @@ is present) for each pairwise comparison.
 {title:Version}
 
 {p 4}
-Version 1.0.8 {hline 2} 30 September 2019
+Version 1.0.9 {hline 2} 12 May 2022
 
 
 {marker authors}{...}
@@ -92,7 +92,7 @@ stata@metodo.uab.cat{p_end}
 {p 4 6 2}
 Dom{c e'}nech JM. Kruskal-Wallis equality-of-populations rank test and non-parametric pairwise comparisons across{break}
 the levels of factor variables: User-written command pwkwallis for Stata  [computer program].{break}
-V1.0.8. Bellaterra: Universitat Aut{c o'g}noma de Barcelona; 2019.{break}
+V1.0.9. Bellaterra: Universitat Aut{c o'g}noma de Barcelona; 2022.{break}
 Available executing from Stata: net from http://metodo.uab.cat/stata{p_end}
 
 
