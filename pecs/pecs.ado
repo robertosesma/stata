@@ -330,6 +330,50 @@ program define getdta
 	save `file', replace
 end
 
+program define addPC
+	version 15
+	syntax [anything], dta(string) folder(string)
+
+	cd "`folder'"
+
+	* obtener todos los xlsx de folder
+	local files : dir "`folder'" files "*.xlsx", respectcase
+	local appnd
+	foreach f in `files' {
+		* importar excel
+		import excel "`f'", sheet("Exported") firstrow clear
+		* seleccionar y renombrar variables
+		keep Grup DNINIE PC Fixe Comentari Feina
+		generate fijo = (Fixe=="Si")
+		drop Fixe
+		rename (Grup DNINIE Comentari Feina) (grupo DNI coment trabajo)
+		* asegurar que existe una variable coment string
+		local t : type coment
+		if (substr("`t'",1,3)!="str") {
+			drop coment
+			generate coment = ""
+		}
+		* eliminar variable labels
+		foreach v of varlist * {
+			label variable `v' ""
+		}
+		local grupo = grupo[1]
+		save `grupo'.dta, replace
+		local appnd "`appnd' `grupo'"
+	}
+	* unir xlsx en un único dta
+	clear
+	append using `appnd'
+	sort grupo PC
+	save "_datos.dta", replace
+	* añadir info PC fijo coment trabajo a dta
+	use "`dta'", clear
+	merge 1:1 grupo DNI using "_datos.dta", nogenerate update replace
+	recode PC (0=.)
+	sort grupo PC
+	save "`dta'", replace
+end
+
 program define addPvars
 	version 15
 	syntax [anything]
@@ -532,8 +576,8 @@ program define alumnos
 			gen PEC0 = .
 			gen PEC1 = .
 		}
-		keep periodo curso DNI grupo nombre ape1 ape2 nomcomp PC fijo clase entrega PEC0 PEC1 PEC NOTA copia IDcopia coment prov pobl trabajo email
-		drop if missing(NOTA)
+		keep periodo curso DNI grupo nombre ape1 ape2 nomcomp PC fijo clase entrega PEC0 PEC1 PEC NOTA copia IDcopia coment prov pobl email
+		*drop if missing(NOTA)
 		gen año = "`year'"
 		save `f', replace
 		
