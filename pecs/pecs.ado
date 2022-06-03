@@ -251,7 +251,7 @@ end
 
 program define getdta
 	version 15
-	syntax [anything], p(string) curso(string) folder(string) [online]
+	syntax [anything], p(string) curso(string) folder(string) [online dir(string) onedrive(string)]
 
 	cd "`folder'"
 
@@ -323,11 +323,20 @@ program define getdta
 		save `name'.dta, replace
 		local dta "`dta' `name'"
 	}
-	* unir en un único dta por periodo y grabar
+	* unir en un único dta por periodo y grabar en carpeta de trabajo y onedrive
 	clear
 	append using `dta'
-	local file = "$dir/`p'_`curso'.dta"
-	save `file', replace
+	if ("`dir'"=="") {
+		local file = "$dir/`p'_`curso'.dta"		
+	}
+	else {
+		local file = "`dir'/`p'_`curso'.dta"
+	}
+	save "`file'", replace
+	if ("`onedrive'"!="") {
+		local file = "`onedrive'/`p'_`curso'.dta"
+		save "`file'", replace
+	}
 end
 
 program define addPC
