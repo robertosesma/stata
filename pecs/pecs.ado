@@ -600,16 +600,18 @@ end
 
 program define getxlsx
 	version 15
-	syntax [anything], [j(integer 25)]
+	syntax [anything], [j(integer 15) dta(string) pec1(string) xlsx(string)]
 
-	* abrir el dta con los DNIs de los alumnos
-	local files : dir "$dir" files "*.dta", respectcase
-	foreach f in `files' {
-		if (strpos("`f'","sol")==0) local dta = "`f'"
+	if ("`dta'"=="") {
+		local files : dir "$dir" files "*.dta", respectcase
+		foreach f in `files' {
+			if (strpos("`f'","sol")==0) local dta = "$dir/`f'"
+		}
 	}
+	* abrir el dta con los DNIs de los alumnos
 	frame create semillas
 	frame change semillas
-	use "$dir/`dta'", clear
+	use "`dta'", clear		
 	keep DNI
 	* generar semilla s a partir del DNI
 	gen s = DNI
@@ -630,7 +632,8 @@ program define getxlsx
 		local seed = s[`i']
 
 	    preserve
-	    import excel "$PEC1/Salud.xlsx", sheet("Salud") firstrow clear
+		local Salud = cond("`pec1'"=="","$PEC1/Salud.xlsx","`pec1'/Salud.xlsx")
+	    import excel "`Salud'", sheet("Salud") firstrow clear
 
 		* modificar las variables aleatoriamente
 		set seed `seed'
@@ -652,7 +655,8 @@ program define getxlsx
 		replace H5 = runiformint(1,3) in `j'/L
 
 		* exportar a excel
-		export excel using "$PEC1/xlsx/`dni'.xlsx", sheet("Salud") firstrow(variables) replace
+		local f = cond("`xlsx'"=="","$PEC1/xlsx","`xlsx'")
+		export excel using "`f'/`dni'.xlsx", sheet("Salud") firstrow(variables) replace
 		di "`dni'"
 
 		restore
@@ -663,8 +667,17 @@ end
 
 program define get_results_tuto
 	version 15
-	syntax [anything]
+	syntax [anything], [dta(string) pec1(string)]
 
+	if ("`dta'"=="") {
+		local files : dir "$dir" files "*.dta", respectcase
+		foreach f in `files' {
+			if (strpos("`f'","sol")==0) local dta = "$dir/`f'"
+		}
+	}
+	* abrir el dta con los alumnos
+	use "`dta'", clear
+	
 	* añadir las variables para almacenar las respuestas
 	foreach i of numlist 65/74 {
 		local n = char(`i')
@@ -675,7 +688,8 @@ program define get_results_tuto
 	format T*_* R*_* %5.2f
 	format *_F *_H %5.3f
 
-	cd "$PEC1"
+	local PEC1 = cond("`PEC1'"=="","$PEC1","`pec1'")
+	cd "`pec1'"
 
 	* generar los resultados de cada alumno para sus datos personalizados
 	foreach i of numlist 1/`c(N)' {
@@ -737,13 +751,21 @@ program define get_results_tuto
 	generate grup = substr(grupo,6,2)
 	export delimited curso any grup DNI P*_* using "results.csv", delimiter(",") quote replace
 	restore
-
 end
 
 program define PEC1
 	version 15
-	syntax [anything]
+	syntax [anything], [dta(string) pec1(string)]
 
+	if ("`dta'"=="") {
+		local files : dir "$dir" files "*.dta", respectcase
+		foreach f in `files' {
+			if (strpos("`f'","sol")==0) local dta = "$dir/`f'"
+		}
+	}
+	* abrir el dta con los alumnos
+	use "`dta'", clear
+	
 	* leer las respuestas de los alumnos de los archivos PDF
 	foreach i of numlist 1/`c(N)' {
 		* DNI del alumno
@@ -751,14 +773,15 @@ program define PEC1
 		local name = "PEC1_ST1_`dni'.pdf"
 
 		* ruta del archivo
-		mata: st_local("file", pathjoin(st_global("PEC1"),"pdf"))
+		local PEC1 = cond("`PEC1'"=="","$PEC1","`pec1'")
+		mata: st_local("file", pathjoin(st_local("PEC1"),"pdf"))
 		mata: st_local("file", pathjoin(st_local("file"),st_local("name")))
 
 		javacall com.leam.stata.pecs.StataPECs getPEC1, args(`"`file'"' `"`i'"' "10")       ///
 				jars(statapecs.jar)
 		di "`dni'"
 	}
-
+	
 	quietly{
 		* obtener resultados PEC1 comparando variables T (correctas) con R (respuestas)
 		foreach n in A B C D E G I J {
@@ -806,7 +829,7 @@ program define PEC1
 	* estadística (solo aprobados)
 	summarize PEC1 if PEC1 >= 5
 	
-	di "Proceso finalizado"
+	di "Proceso finalizado; dta no grabado"
 
 end
 
