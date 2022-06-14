@@ -1,4 +1,4 @@
-*! version 1.1.4  16jun2020
+*! version 1.1.5  13jun2022
 program cohenkapi__dlg
 	version 12.0
 	gettoken subcmd 0 : 0

@@ -1,4 +1,4 @@
-*! version 1.1.4  16jun2020 JM. Domenech, R. Sesma
+*! version 1.1.5  13jun2022 JM. Domenech, R. Sesma
 
 program define cohenkap, byable(recall)
 	version 12

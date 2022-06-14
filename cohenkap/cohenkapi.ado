@@ -1,4 +1,4 @@
-*! version 1.1.4  16jun2020 JM. Domenech, R. Sesma
+*! version 1.1.5  13jun2022 JM. Domenech, R. Sesma
 
 program define cohenkapi, rclass
 	version 12
@@ -54,7 +54,12 @@ program define cohenkapi, rclass
 	local ctitle = cond("`_vx'"=="","RatingX",abbrev("`_vx'",`len'))
 	foreach i of numlist 1/`k' {
 		if ("`_vy'"=="") {
-			local lbl`i' = "`i'"
+			if (`k'==2) {
+				local lbl`i' = cond(`i'==1,"(-)","(+)")
+			}
+			else {
+				local lbl`i' = "`i'"
+			}
 		}
 		else {
 			local v : word `i' of `_values'
